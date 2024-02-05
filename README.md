@@ -1,187 +1,202 @@
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-<p><strong>Mathematical Calculations</strong></p>
+**Mathematical Calculations**
 
-<p>How to work with the Calculator Class and invoke the Calculator Class</p>
+How to work with the Calculator Class and invoke the Calculator Class
 
-<p dir="rtl">نحوه کار با کلاس محاسبات و فراخوانی کلاس محاسبات</p>
+نحوه کار با کلاس محاسبات و فراخوانی کلاس محاسبات
 
-<p>// برداشتن اعداد برای محاسبات</p>
+// برداشتن اعداد برای محاسبات
 
-<p>double[] numbers = { 2.6, 7, 8, 9 };</p>
+double\[\] numbers = { 2.6, 7, 8, 9 };
 
-<p>// ایجاد نمونه ای از کلاس محاسبات</p>
+// ایجاد نمونه ای از کلاس محاسبات
 
-<p>Calculator calculator = new Calculator();</p>
+Calculator calculator = new Calculator();
 
-<p>// انجام عملیات ضرب</p>
+// انجام عملیات ضرب
 
-<p>double resultMultiply = calculator.Multiply(numbers);</p>
+double resultMultiply = calculator.Multiply(numbers);
 
-<p>// انجام عملیات جمع</p>
+// انجام عملیات جمع
 
-<p>double resultAdd = calculator.Add(numbers);</p>
+double resultAdd = calculator.Add(numbers);
 
-<p>// انجام عملیات منفی</p>
+// انجام عملیات منفی
 
-<p>double resultSubtract = calculator.Subtract(numbers);</p>
+double resultSubtract = calculator.Subtract(numbers);
 
-<p>// انجام عملیات تقسیم</p>
+// انجام عملیات تقسیم
 
-<p>double resultDivide = calculator.Divide(numbers);</p>
+double resultDivide = calculator.Divide(numbers);
 
-<p>// انجام عملیات درصد تخفیف</p>
+// انجام عملیات درصد تخفیف
 
-<p>decimal resultDiscount = calculator.Discount(200000, 20);</p>
+decimal resultDiscount = calculator.Discount(200000, 20);
 
-<p>// انجام عملیات درصد مالیات</p>
+// انجام عملیات درصد مالیات
 
-<p>decimal resultTaxation = calculator.Taxation(500000, 9);</p>
+decimal resultTaxation = calculator.Taxation(500000, 9);
 
-<p>////////////////////////////////////////////////////////////////</p>
+////////////////////////////////////////////////////////////////
 
-<p>// Getting numbers for calculations</p>
+// Getting numbers for calculations
 
-<p>double[] numbers = { 2.6, 7, 8, 9 };</p>
+double\[\] numbers = { 2.6, 7, 8, 9 };
 
-<p>// Creating an instance of the Calculator class</p>
+// Creating an instance of the Calculator class
 
-<p>Calculator calculator = new Calculator();</p>
+Calculator calculator = new Calculator();
 
-<p>// Performing multiplication operation double resultMultiply = calculator.Multiply(numbers);</p>
+// Performing multiplication operation double resultMultiply = calculator.Multiply(numbers);
 
-<p>// Performing addition operation</p>
+// Performing addition operation
 
-<p>double resultAdd = calculator.Add(numbers);</p>
+double resultAdd = calculator.Add(numbers);
 
-<p>// Performing subtraction operation</p>
+// Performing subtraction operation
 
-<p>double resultSubtract = calculator.Subtract(numbers);</p>
+double resultSubtract = calculator.Subtract(numbers);
 
-<p>// Performing division operation</p>
+// Performing division operation
 
-<p>double resultDivide = calculator.Divide(numbers);</p>
+double resultDivide = calculator.Divide(numbers);
 
-<p>// Performing discount percentage operation</p>
+// Performing discount percentage operation
 
-<p>decimal resultDiscount = calculator.Discount(200000, 20);</p>
+decimal resultDiscount = calculator.Discount(200000, 20);
 
-<p>// Performing taxation percentage operation</p>
+// Performing taxation percentage operation
 
-<p>decimal resultTaxation = calculator.Taxation(500000, 9);</p>
+decimal resultTaxation = calculator.Taxation(500000, 9);
 
-<p>&nbsp;&nbsp;&nbsp; Converting numbers into words for displaying amounts</p>
+    Converting numbers into words for displaying amounts
 
-<p>long moneyNumber = 15451225858;</p>
+long moneyNumber = 15451225858;
 
-<p>// تبدیل عدد به حروف برحسب واحد پول ایران</p>
+// تبدیل عدد به حروف برحسب واحد پول ایران
 
-<p>string moneyRaghamToHorof = ConvertNumbertToString.ConvertRaghamToHorof(moneyNumber);</p>
+string moneyRaghamToHorof = ConvertNumbertToString.ConvertRaghamToHorof(moneyNumber);
 
-<p>// دا کردن سه رقم اعشار اعداد</p>
+// دا کردن سه رقم اعشار اعداد
 
-<p>string moneyRaghamToJodaJoda = ConvertNumbertToString.ConvertRaghamToJodaJoda(moneyNumber);</p>
+string moneyRaghamToJodaJoda = ConvertNumbertToString.ConvertRaghamToJodaJoda(moneyNumber);
 
-<p>// تبدیل عدد به حروف برحسب واحد پول ایران</p>
+// تبدیل عدد به حروف برحسب واحد پول ایران
 
-<p>string moneyNumToString = ConvertNumToString.convert(moneyNumber.ToString());</p>
+string moneyNumToString = ConvertNumToString.convert(moneyNumber.ToString());
 
-<p>/*</p>
+/////////////////////////////////////////////////////////////////////////////////
 
-<p>کاربرد زیرمجموعه دستورها در StringExtensions: به ترتیب</p>
+کاربرد زیرمجموعه دستورها در StringExtensions: به ترتیب
 
-<p>StringExtensions.HasValue: بررسی اینکه آیا مقدار وجود داره یا خیر</p>
+StringExtensions.HasValue: بررسی اینکه آیا مقدار وجود داره یا خیر
 
-<p>StringExtensions.ToInt: تبدیل به Int</p>
+StringExtensions.ToInt: تبدیل به Int
 
-<p>StringExtensions.ToDecimal: تبدیل به ToDecimal</p>
+StringExtensions.ToDecimal: تبدیل به ToDecimal
 
-<p>StringExtensions.ToNumeric (int): دریافت مقدار int و نمایش آن به صورت سه رقم اعشار</p>
+StringExtensions.ToNumeric (int): دریافت مقدار int و نمایش آن به صورت سه رقم اعشار
 
-<p>StringExtensions.ToNumeric (decimal): دریافت مقدار decimal و نمایش آن به صورت سه رقم اعشار</p>
+StringExtensions.ToNumeric (decimal): دریافت مقدار decimal و نمایش آن به صورت سه رقم اعشار
 
-<p>StringExtensions.ToCurrency (int): دریافت مقدار int و نمایش آن به صورت ارزی</p>
+StringExtensions.ToCurrency (int): دریافت مقدار int و نمایش آن به صورت ارزی
 
-<p>StringExtensions.ToCurrency (decimal): دریافت مقدار decimal و نمایش آن به صورت ارزی</p>
+StringExtensions.ToCurrency (decimal): دریافت مقدار decimal و نمایش آن به صورت ارزی
 
-<p>StringExtensions.En2Fa: جایگزین عدد انگلیسی به جای عدد پارسی</p>
+StringExtensions.En2Fa: جایگزین عدد انگلیسی به جای عدد پارسی
 
-<p>StringExtensions.Fa2En: جایگزین عدد پارسی به جای عدد انگلیسی</p>
+StringExtensions.Fa2En: جایگزین عدد پارسی به جای عدد انگلیسی
 
-<p>StringExtensions.FixPersianChars: جایگزین حروف عربی و غیر ایرانی به جای حروف پارسی</p>
+StringExtensions.FixPersianChars: جایگزین حروف عربی و غیر ایرانی به جای حروف پارسی
 
-<p>StringExtensions.RemovePoint: حذف نقطه یا علامت اعشار از اعداد</p>
+StringExtensions.RemovePoint: حذف نقطه یا علامت اعشار از اعداد
 
-<p>StringExtensions.CleanString: انجام چندین عملیات پاکسازی با هم</p>
+StringExtensions.CleanString: انجام چندین عملیات پاکسازی با هم
 
-<p>StringExtensions.NullIfEmpty: جلوگیری از مقدار خالی و ارسال Null به جای مقدار خالی</p>
+StringExtensions.NullIfEmpty: جلوگیری از مقدار خالی و ارسال Null به جای مقدار خالی
 
-<p>StringExtensions.HtmlTags: حذف تگ&zwnj;های html از متن</p>
+StringExtensions.HtmlTags: حذف تگ‌های html از متن
 
-<p>StringExtensions.ASCII: حذف مقدار عملکر گردها از متن</p>
+StringExtensions.ASCII: حذف مقدار عملکر گردها از متن
 
-<p>*/</p>
+//////////////////////////////////////////////////////////////
 
-<p>string stringExtensions = StringExtensions.CleanString(&quot;چطوری خوبی&quot;);</p>
+string stringExtensions = StringExtensions.CleanString("چطوری خوبی");
 
-<p>long moneyNumber = 15451225858;</p>
+long moneyNumber = 15451225858;
 
-<p>// Convert the number to words based on Iranian currency</p>
+// Convert the number to words based on Iranian currency
 
-<p>string moneyRaghamToHorof = ConvertNumbertToString.ConvertRaghamToHorof(moneyNumber);</p>
+string moneyRaghamToHorof = ConvertNumbertToString.ConvertRaghamToHorof(moneyNumber);
 
-<p>// Splitting the decimal numbers</p>
+// Splitting the decimal numbers
 
-<p>string moneyRaghamToJodaJoda = ConvertNumbertToString.ConvertRaghamToJodaJoda(moneyNumber);</p>
+string moneyRaghamToJodaJoda = ConvertNumbertToString.ConvertRaghamToJodaJoda(moneyNumber);
 
-<p>// Convert the number to words based on Iranian currency</p>
+// Convert the number to words based on Iranian currency
 
-<p>string moneyNumToString = ConvertNumToString.convert(moneyNumber.ToString());</p>
+string moneyNumToString = ConvertNumToString.convert(moneyNumber.ToString());
 
-<p>/* The usage of StringExtensions subset</p>
+// The usage of StringExtensions subset
 
-<p>In order:</p>
+In order:
 
-<p>StringExtensions.HasValue: Check if a value exists or not</p>
+StringExtensions.HasValue: Check if a value exists or not
 
-<p>StringExtensions.ToInt: Convert to Int</p>
+StringExtensions.ToInt: Convert to Int
 
-<p>StringExtensions.ToDecimal: Convert to Decimal</p>
+StringExtensions.ToDecimal: Convert to Decimal
 
-<p>StringExtensions.ToNumeric: Get the int value and display it with split decimal numbers</p>
+StringExtensions.ToNumeric: Get the int value and display it with split decimal numbers
 
-<p>StringExtensions.ToNumeric: Get the decimal value and display it with split decimal numbers</p>
+StringExtensions.ToNumeric: Get the decimal value and display it with split decimal numbers
 
-<p>StringExtensions.ToCurrency: Get the int value and display it as currency</p>
+StringExtensions.ToCurrency: Get the int value and display it as currency
 
-<p>StringExtensions.ToCurrency: Get the decimal value and display it as currency</p>
+StringExtensions.ToCurrency: Get the decimal value and display it as currency
 
-<p>StringExtensions.En2Fa: Replace Persian numbers with English ones</p>
+StringExtensions.En2Fa: Replace Persian numbers with English ones
 
-<p>StringExtensions.Fa2En: Replace English numbers with Persian ones</p>
+StringExtensions.Fa2En: Replace English numbers with Persian ones
 
-<p>StringExtensions.FixPersianChars: Replace Persian characters with non-Iranian ones</p>
+StringExtensions.FixPersianChars: Replace Persian characters with non-Iranian ones
 
-<p>StringExtensions.RemovePoint: Remove the decimal point or comma from the numbers</p>
+StringExtensions.RemovePoint: Remove the decimal point or comma from the numbers
 
-<p>StringExtensions.CleanString: Perform several cleaning operations together</p>
+StringExtensions.CleanString: Perform several cleaning operations together
 
-<p>StringExtensions.NullIfEmpty: Take care of empty values and send Null instead of an empty value</p>
+StringExtensions.NullIfEmpty: Take care of empty values and send Null instead of an empty value
 
-<p>StringExtensions.HtmlTags: Remove html tags from descriptions</p>
+StringExtensions.HtmlTags: Remove html tags from descriptions
 
-<p>StringExtensions.ASCII: Remove operation characters</p>
+StringExtensions.ASCII: Remove operation characters
 
-<p>*/</p>
+////
 
-<p>string stringExtensions = StringExtensions.CleanString(&quot;How are you&quot;);</p>
+string stringExtensions = StringExtensions.CleanString("How are you");
 
-<p><strong>&nbsp;&nbsp;&nbsp; Analyzing Persian texts: converting non-Persian characters to Persian, converting English numbers into Persian, and vice versa, etc.<br />
-&nbsp;&nbsp;&nbsp; Date operations: converting and calculating time<br />
-&nbsp;&nbsp;&nbsp; Encoding and decoding encoded values<br />
-&nbsp;&nbsp;&nbsp; Generating values, meaning generating numbers, etc.</strong></p>
-</body>
-</html>
+    **Analyzing Persian texts: converting non-Persian characters to Persian, converting English numbers into Persian, and vice versa, etc.  
+/////////////////////////////////////////////////////////////
+    Date operations: converting and calculating time  
+
+In order to convert date and time to your local area, you first need to perform the using operation.
+
+using SayyehBanTools.ShowDateTime
+
+Then, wherever you need to convert the date to your location, use this command.
+
+ConvertDateTime.ConvertToLocalDateTime(item.Time)
+
+This way, wherever you have stored the date and time in UTC format inside the database, you display it in the desired country's format.
+
+برای اینکه بتوانید تاریخ و زمان را به منطقه خودتان تبدیل کنید، ابتدا باید عمل using را انجام دهید.
+
+using SayyehBanTools.ShowDateTime
+
+سپس، در هر جایی که نیاز به تبدیل تاریخ به موقعیت مکانی خود دارید، از این دستور استفاده کنید.
+
+ConvertDateTime.ConvertToLocalDateTime(item.Time)
+
+به این شکل، هر جا که تاریخ و زمان را در فرمت UTC در دیتابیس ذخیره کرده‌اید، آن را با فرمت کشور مورد نظر نمایش می‌دهید.
+///////////////////////////////////////////////////////////////
+    Encoding and decoding encoded values  
+    Generating values, meaning generating numbers, etc.**
