@@ -8,7 +8,7 @@ public class ConvertDateTime
      /// </summary>
      /// <param name="_date"></param>
      /// <returns></returns>
-    public string miladi2shamsi(DateTime _date)
+    public static string miladi2shamsi(DateTime _date)
     {
         PersianCalendar pc = new PersianCalendar();
 
@@ -75,7 +75,7 @@ public class ConvertDateTime
     /// </summary>
     /// <param name="utcDateTime"></param>
     /// <returns></returns>
-    public DateTime ConvertToLocalDateTime(DateTime utcDateTime)
+    public static DateTime ConvertToLocalDateTime(DateTime utcDateTime)
     {
         TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
         DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(utcDateTime, localTimeZone);
@@ -93,7 +93,7 @@ public class ConvertDateTime
     /// </summary>
     /// <param name="MiladiDate"></param>
     /// <returns></returns>
-    public string MiladiToShamsi(DateTime MiladiDate)
+    public static string MiladiToShamsi(DateTime MiladiDate)
     {
         string shDate = string.Empty;
         System.Globalization.PersianCalendar perCal = new System.Globalization.PersianCalendar();
@@ -108,7 +108,7 @@ public class ConvertDateTime
     /// </summary>
     /// <param name="ShDate"></param>
     /// <returns></returns>
-    public static DateTime ShamsiToMiladi(string ShDate)
+    public  static DateTime ShamsiToMiladi(string ShDate)
     {
         DateTime dt = default(DateTime);
         if (!string.IsNullOrEmpty(ShDate))

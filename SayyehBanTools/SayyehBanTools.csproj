@@ -7,7 +7,7 @@
     <ApplicationIcon>0146194123644237Logo-sayeban.ico</ApplicationIcon>
     <AssemblyVersion>1.0.1.1</AssemblyVersion>
     <FileVersion>1.0.1.1</FileVersion>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -17,10 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Validation\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Ben.Demystifier" Version="0.4.1" />
   </ItemGroup>
 
   <ItemGroup>
