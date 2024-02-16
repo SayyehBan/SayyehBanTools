@@ -1,4 +1,16 @@
-﻿**Mathematical Calculations**
+﻿# 🌟 SayyehBanTools 🌟
+
+## توضیحات
+SayyehBanTools یک افزونه قدرتمند برای بهبود این پکیج است. شما نیز می‌توانید در بهبود این پکیج همکاری کرده و آن را قوی‌تر کنید.
+
+## Description
+SayyehBanTools is a powerful extension to enhance this package. You can also contribute to improving this package and make it stronger together.
+
+---
+
+Don't forget to include the link to your GitHub repository: SayyehBanTools (https://github.com/SayyehBan/SayyehBanTools) 🚀
+
+**Mathematical Calculations**
 
 How to work with the Calculator Class and invoke the Calculator Class
 
@@ -200,3 +212,25 @@ ConvertDateTime.ConvertToLocalDateTime(item.Time)
 ///////////////////////////////////////////////////////////////
     Encoding and decoding encoded values  
     Generating values, meaning generating numbers, etc.**
+///////////////////////////////////////////////////////////////////
+
+## Common List and How to Use Commons
+
+### توضیحات به پارسی:
+در این بخش، ما یک PagingExtensions در لیست Common داریم که امکان صفحه‌بندی را به صورت LINQ to SQL و یا فقط LINQ فراهم می‌کند.
+
+### Description in English:
+In this section, we have a PagingExtensions in the Common list that provides pagination functionality in LINQ to SQL and/or just LINQ.
+
+### How to Use Pagination Command
+public PaginatedItemsDto<CatalogTypeListDto> GetList(int? parentId, int page, int pageSize)
+{
+    int totalCount = 0;
+
+    var model = context.CatalogTypes.AsQueryable().PagedResult(page, pageSize, out totalCount);
+    var result = mapper.ProjectTo<CatalogTypeListDto>(model).ToList();
+    return new PaginatedItemsDto<CatalogTypeListDto>(page, pageSize, totalCount, result);
+}
+
+
+In this section, you can use the pagination command .PagedResult(page, pageSize, out totalCount);.
