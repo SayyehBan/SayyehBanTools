@@ -1,9 +1,12 @@
 ﻿# 🌟 SayyehBanTools 🌟
 
-## توضیحات
-SayyehBanTools یک افزونه قدرتمند برای بهبود این پکیج است. شما نیز می‌توانید در بهبود این پکیج همکاری کرده و آن را قوی‌تر کنید.
+## Authors
 
-## Description
+- [@SayyehBanTools](https://github.com/SayyehBan/SayyehBanTools)
+
+# توضیحات
+این package  یک ابزار کمکی از دستورات جمع شده برای افزایش سرعت در کد نویسی میباشد. تا بتوانید عملیات کدنویسی سریتر انجام دهید.
+# Description
 SayyehBanTools is a powerful extension to enhance this package. You can also contribute to improving this package and make it stronger together.
 
 ---

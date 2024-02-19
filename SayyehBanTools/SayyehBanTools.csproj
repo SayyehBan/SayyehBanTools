@@ -4,15 +4,31 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>0146194123644237Logo-sayeban.ico</ApplicationIcon>
     <AssemblyVersion>1.0.1.1</AssemblyVersion>
     <FileVersion>1.0.1.1</FileVersion>
-    <Version>1.0.4</Version>
+    <Version>1.0.7</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Company>SayyehBan.ir</Company>
+    <Description>سورس کمکی برای افزایش سرعت کد نویسی</Description>
+    <PackageIcon>Logo.png</PackageIcon>
+    <Authors>سایه بان</Authors>
+    <Title>سورس کمکی سایه بان</Title>
+    <PackageProjectUrl>https://www.nuget.org/packages/SayyehBanTools</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SayyehBan/SayyehBanTools</RepositoryUrl>
+    <RepositoryType>https://github.com/SayyehBan/SayyehBanTools</RepositoryType>
+    <Copyright>Sayyehban.ir</Copyright>
+    <PackageTags>dtonet utilities  helper</PackageTags>
+    <PackAsTool>True</PackAsTool>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="0146194123644237Logo-sayeban.ico" />
+    <Compile Remove="Sayyehban_Final\**" />
+    <EmbeddedResource Remove="Sayyehban_Final\**" />
+    <None Remove="Sayyehban_Final\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +36,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\..\..\Logo.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Logo.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
