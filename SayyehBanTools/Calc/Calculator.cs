@@ -7,7 +7,7 @@ public class Calculator
     /// </summary>
     /// <param name="numbers"></param>
     /// <returns></returns>
-    public double Multiply(params double[] numbers)
+    public static double Multiply(params double[] numbers)
     {
         double result = 1;
         foreach (double number in numbers)
@@ -21,7 +21,7 @@ public class Calculator
     /// </summary>
     /// <param name="numbers"></param>
     /// <returns></returns>
-    public double Add(params double[] numbers)
+    public static double Add(params double[] numbers)
     {
         double result = 0;
         foreach (double number in numbers)
@@ -35,7 +35,7 @@ public class Calculator
     /// </summary>
     /// <param name="numbers"></param>
     /// <returns></returns>
-    public double Subtract(params double[] numbers)
+    public static double Subtract(params double[] numbers)
     {
         double result = numbers[0];
         for (int i = 1; i < numbers.Length; i++)
@@ -51,7 +51,7 @@ public class Calculator
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="DivideByZeroException"></exception>
-    public double Divide(params double[] numbers)
+    public static double Divide(params double[] numbers)
     {
         if (numbers.Length < 2)
         {
@@ -75,7 +75,7 @@ public class Calculator
     /// <param name="Amount"></param>
     /// <param name="percent"></param>
     /// <returns></returns>
-    public decimal Discount(decimal Amount, short percent)
+    public static decimal Discount(decimal Amount, short percent)
     {
         decimal total = Math.Round(Amount - ((Amount * percent) / 100));
         return total;
@@ -86,7 +86,7 @@ public class Calculator
     /// <param name="Amount"></param>
     /// <param name="percent"></param>
     /// <returns></returns>
-    public decimal Taxation(decimal Amount, short percent)
+    public static decimal Taxation(decimal Amount, short percent)
     {
         decimal total = Math.Round(Amount + ((Amount * percent) / 100));
         return total;

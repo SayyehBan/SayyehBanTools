@@ -8,7 +8,7 @@ public class GenerateValue
     /// تولید عدد تصادفی 8 رقمی
     /// </summary>
     /// <returns></returns>
-    public string Generate_Unique_Number()
+    public static string Generate_Unique_Number()
     {
         var bytes = new byte[4];
         var rng = RandomNumberGenerator.Create();
