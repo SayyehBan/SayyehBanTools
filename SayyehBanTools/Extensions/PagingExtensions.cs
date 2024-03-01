@@ -61,3 +61,15 @@ public static class PagingExtensions
         return query.Skip(excludedRows).Take(pageSize);
     }
 }
+
+//sampleUse
+/*
+ var data = context.CatalogItems.Include(p => p.CatalogItemImages).OrderByDescending(p => p.Id).PagedResult(page, pageSize, out
+             rowCount).Select(p => new CatalogPLPDto
+             {
+                 Id = p.Id,
+                 Name = p.Name,
+                 Price = p.Price,
+                 Rate = 4,
+                 Image = uriComposerService.ComposeImageUri(p.CatalogItemImages.FirstOrDefault().Src)
+             }).ToList(); */
