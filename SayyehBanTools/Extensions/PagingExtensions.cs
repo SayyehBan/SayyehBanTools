@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace SayyehBanTools.Common;
+namespace SayyehBanTools.Extensions;
 
 public static class PagingExtensions
 {
