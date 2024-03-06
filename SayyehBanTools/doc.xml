@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SayyehBanTools</name>
+    </assembly>
+    <members>
+        <member name="M:SayyehBanTools.Calc.Calculator.Multiply(System.Double[])">
+            <summary>
+            انجام عملیات ضرب
+            </summary>
+            <param name="numbers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Calc.Calculator.Add(System.Double[])">
+            <summary>
+            انجام عملیات جمع
+            </summary>
+            <param name="numbers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Calc.Calculator.Subtract(System.Double[])">
+            <summary>
+            انجام عملیات منفی
+            </summary>
+            <param name="numbers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Calc.Calculator.Divide(System.Double[])">
+            <summary>
+            انجام عملیات تقسیم
+            </summary>
+            <param name="numbers"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.DivideByZeroException"></exception>
+        </member>
+        <member name="M:SayyehBanTools.Calc.Calculator.Discount(System.Decimal,System.Int16)">
+            <summary>
+            محاسبه مبلغ درصد تخفیف
+            </summary>
+            <param name="Amount"></param>
+            <param name="percent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Calc.Calculator.GetPercent(System.Decimal,System.Decimal)">
+            <summary>
+            دریافت درصد تخفیف یا مالیات
+            </summary>
+            <param name="amount">مبلغ تخفیف یا مالیات</param>
+            <param name="price">قیمت اصلی</param>
+            <returns>درصد تخفیف یا مالیات</returns>
+        </member>
+        <member name="M:SayyehBanTools.Calc.Calculator.Taxation(System.Decimal,System.Int16)">
+            <summary>
+            محاسباه مبلغ درصد مالیات
+            </summary>
+            <param name="Amount"></param>
+            <param name="percent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof(System.Int64)">
+            <summary>
+            عدد رادریافت وبه حروف تبدیل می کند 
+            </summary>
+            <param name="Ragham">رقم </param>
+            <returns>به حروف عدد را برمی گرداند</returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof(System.String)">
+            <summary>
+            یک عدد به صورت سه رقم جدا را دریافت وبه حروف تبدیل می کند
+            </summary>
+            <param name="Ragham"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof0to19(System.Int32)">
+            <summary>
+            اعداد از صفر تا 19 را به حروف تبدیل میکند
+            </summary>
+            <param name="Ragham">عدد بین 0 تا 19</param>
+            <returns>حروف را برمی گرداند در صورت خطا -1  و درصورت عدد نامعتبر تهی برمی گرداند</returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof20to99(System.Int32)">
+            <summary>
+            اعداد از بیست   تا نود نه را به حروف تبدیل میکند
+            </summary>
+            <param name="Ragham">عدد بین 20 تا 99</param>
+            <returns>حروف را برمی گرداند در صورت خطا -1  و درصورت عدد نامعتبر تهی برمی گرداند</returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof0to99(System.Int32)">
+            <summary>
+            اعداد از 0   تا نود نه را به حروف تبدیل میکند
+            </summary>
+            <param name="Ragham">عدد بین 0 تا 99</param>
+            <returns>حروف را برمی گرداند در صورت خطا -1  و درصورت عدد نامعتبر تهی برمی گرداند</returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof100to999(System.Int32)">
+            <summary>
+            اعداد از صد  تانهصدو نودو نه را به حروف تبدیل میکند
+            </summary>
+            <param name="Ragham">عدد بین 100 تا 999</param>
+            <returns>حروف را برمی گرداند در صورت خطا -1  و درصورت عدد نامعتبر تهی برمی گرداند</returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof0to999(System.Int32)">
+            <summary>
+            اعداد از صفر تا 999 را به حروف تبدیل می کند
+            </summary>
+            <param name="Ragham"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.pishConvertRaghamToHorof3(System.Int32,System.Int32)">
+            <summary>
+            یک عدد سه رقمی و موقعیت انرا دریافت و به حروف تبدیل می کند
+            </summary>
+            <param name="Ragham">عدد سه رقمی</param>
+            <param name="LocationRagham"> موقیت عدد 2 =هزار 3== میلیون 4= میلیارد</param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToJodaJoda(System.Int64)">
+            <summary>
+            یک رقم را سه رقم سه رقم جدا می کند
+            </summary>
+            <param name="Ragham">رقم که باید حداکثر دوازده رقم باشد</param>
+            <returns>جداشده سه رقم سه رقم را برمی گرداند</returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.HasValue(System.String,System.Boolean)">
+            <summary>
+            بررسی اینکه آیا مقدار وجود داره یا خیر
+            </summary>
+            <param name="value"></param>
+            <param name="ignoreWhiteSpace"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.ToInt(System.String)">
+            <summary>
+            تبدیل به Int
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.ToDecimal(System.String)">
+            <summary>
+            تبدیل به Decimal
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.ToNumeric(System.Int32)">
+            <summary>
+            دریافت مقدار
+            int
+            و نمایش آن به صورت سه رغم اعشار
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.ToNumeric(System.Decimal)">
+            <summary>
+            دریافت مقدار
+            decimal
+            و نمایش آن به صورت سه رشته اعشار
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.ToCurrency(System.Int32)">
+            <summary>
+            دریافت مقدار
+            int
+            و نمایش آن به صورت
+            Currency
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.ToCurrency(System.Decimal)">
+            <summary>
+            دریافت مقدار 
+            decimal
+            و نمایش آن به صورت
+            Currency
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.En2Fa(System.String)">
+            <summary>
+            جایگزین عدد پارسی به جای انگلیسی
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.Fa2En(System.String)">
+            <summary>
+            جایگزین عدد انگلیسی به جای پارسی
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.FixPersianChars(System.String)">
+            <summary>
+            جایگزین حروف پارسی به جای حروف عربی و غیر ایرانی
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.RemovePoint(System.String)">
+            <summary>
+            حذف نقطه یا علامت اعشار از اعداد
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.CleanString(System.String)">
+            <summary>
+            انجام چندین عملیات پاکسازی با هم
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.NullIfEmpty(System.String)">
+            <summary>
+            جلو مقدار خالی رو گرفتن و به جای مقدار خالی
+            Null
+            ارسال کردن.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Extensions.PagingExtensions.PagedResult``2(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Boolean,System.Int32@)">
+            <summary>
+            صفحه بندی کوئری
+            </summary>
+            <param name="query">کوئری مورد نظر شما</param>
+            <param name="pageNum">شماره صفحه</param>
+            <param name="pageSize">سایز صفحه</param>
+            <param name="orderByProperty">ترتیب خواص</param>
+            <param name="isAscendingOrder">اگر برابر با <c>true</c> باشد صعودی است</param>
+            <param name="rowsCount">تعداد کل ردیف ها</param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.GenerateValue.GenerateValue.Generate_Unique_Number">
+            <summary>
+            تولید عدد تصادفی 8 رقمی
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.GenerateValue.SayyehBan.GenerateCode">
+            نحوه بررسی کد سایه بان
+               if (!IsValidCode(textBox2.Text))
+        </member>
+        <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.miladi2shamsi(System.DateTime)">
+            <summary>
+            کد مربوط به تاریخ به صورت ماه و روز
+            </summary>
+            <param name="_date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.ConvertToLocalDateTime(System.DateTime)">
+            <summary>
+            تبدیل تاریخ و زمان UTC به تاریخ و زمان کشور مورد نظر
+            </summary>
+            <param name="utcDateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.MiladiToShamsi(System.DateTime)">
+            <summary>
+            تبدیل تاریخ میلادی به شمسی
+            </summary>
+            <param name="MiladiDate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.ShamsiToMiladi(System.String)">
+            <summary>
+            تبدیل تاریخ شمسی به میلادی
+            </summary>
+            <param name="ShDate"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

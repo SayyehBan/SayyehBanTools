@@ -70,7 +70,7 @@ public class Calculator
         return result;
     }
     /// <summary>
-    /// محاسبه درصد تخفیف
+    /// محاسبه مبلغ درصد تخفیف
     /// </summary>
     /// <param name="Amount"></param>
     /// <param name="percent"></param>
@@ -81,7 +81,17 @@ public class Calculator
         return total;
     }
     /// <summary>
-    /// محاسباه درصد مالیات
+    /// دریافت درصد تخفیف یا مالیات
+    /// </summary>
+    /// <param name="amount">مبلغ تخفیف یا مالیات</param>
+    /// <param name="price">قیمت اصلی</param>
+    /// <returns>درصد تخفیف یا مالیات</returns>
+    public static decimal GetPercent(decimal Amount, decimal Price)
+    {
+        return (Amount / Price) * 100;
+    }
+    /// <summary>
+    /// محاسباه مبلغ درصد مالیات
     /// </summary>
     /// <param name="Amount"></param>
     /// <param name="percent"></param>
