@@ -2,7 +2,7 @@
 
 public class Pager
 {
-    public Pager(long totalItems, int currentPage, int pageSize, int maxPages)
+    public Pager(long totalItems, int currentPage = 1, int pageSize = 10, int maxPages = 5)
     {
         // calculate total pages
         var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
@@ -64,14 +64,35 @@ public class Pager
 }
 /*
  طریقه استفاده از کلاس
- public Pager Pager { get; private set; }
-
-        public PaginatedItemsDto(int pageIndex, int pageSize, long count, IEnumerable<TEntity> data)
+public class PaginatedItemsDto<TEntity> where TEntity : class
+{
+    public PaginatedItemsDto(int pageIndex, int pageSize, long count, IEnumerable<TEntity> data)
+    {
+        PageIndex = pageIndex;
+        PageSize = pageSize;
+        Count = count;
+        Data = data;
+        Pager = new Pager(count, 1, pageIndex, pageSize);
+    }
+    public int PageIndex { get; private set; }
+    public int PageSize { get; private set; }
+    public long Count { get; private set; }
+    public IEnumerable<TEntity> Data { get; private set; }
+    public Pager Pager { get; private set; }
+    public bool HasPreviousPage
+    {
+        get
         {
-            PageIndex = pageIndex;
-            PageSize = pageSize;
-            Count = count;
-            Data = data;
-            Pager = new Pager(count, pageIndex, pageSize);
+            return (PageIndex > 1);
         }
+    }
+
+    public bool HasNextPage
+    {
+        get
+        {
+            return (PageIndex < Pager.TotalPages);
+        }
+    }
+}
  */
