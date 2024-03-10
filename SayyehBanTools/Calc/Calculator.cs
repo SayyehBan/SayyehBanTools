@@ -101,4 +101,5 @@ public class Calculator
         decimal total = Math.Round(Amount + ((Amount * percent) / 100));
         return total;
     }
+  
 }
