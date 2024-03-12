@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SayyehBanTools.Converter;
 
@@ -209,4 +210,23 @@ public static class StringExtensions
         string pattern = @"\r\n";
         return Regex.Replace(source.Trim(), pattern, " ");
     }
+    /// <summary>
+    /// تبدیل فضای خالی به خط‌تیره (Slug) در رشته.
+    /// </summary>
+    /// <param name="source">رشته ورودی.</param>
+    /// <returns>رشته با فضاهای خالی جایگزین شده توسط خط‌تیره.</returns>
+    public static string Slug(this string source)
+    {
+        return source.Replace(" ", "-");
+    }
+    /// <summary>
+    ///خالی تبدیل فضایخط‌تیره  به  (Slug) در حذف رشته.
+    /// </summary>
+    /// <param name="source">رشته ورودی.</param>
+    /// <returns> رشته با فضاهای خط‌تیره جایگزین شده توسط خالی.</returns>
+    public static string RemoveSlug(this string source)
+    {
+        return source.Replace("-", " ");
+    }
+
 }

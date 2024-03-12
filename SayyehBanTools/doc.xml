@@ -226,6 +226,20 @@
             <param name="str"></param>
             <returns></returns>
         </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.Slug(System.String)">
+            <summary>
+            تبدیل فضای خالی به خط‌تیره (Slug) در رشته.
+            </summary>
+            <param name="source">رشته ورودی.</param>
+            <returns>رشته با فضاهای خالی جایگزین شده توسط خط‌تیره.</returns>
+        </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.RemoveSlug(System.String)">
+             <summary>
+            خالی تبدیل فضایخط‌تیره  به  (Slug) در حذف رشته.
+             </summary>
+             <param name="source">رشته ورودی.</param>
+             <returns> رشته با فضاهای خط‌تیره جایگزین شده توسط خالی.</returns>
+        </member>
         <member name="M:SayyehBanTools.Extensions.PagingExtensions.PagedResult``2(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Boolean,System.Int32@)">
             <summary>
             صفحه بندی کوئری
