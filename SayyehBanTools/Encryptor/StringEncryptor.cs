@@ -5,11 +5,11 @@ namespace SayyehBanTools.Encryptor;
 
 public static class StringEncryptor
 {
-    private static readonly string initVector = "tu89geji340t89u2";
-    private static readonly string passPhrase = "SayyehBanstring";
+    //private static readonly string initVector = "tu89geji340t89u2";
+    //private static readonly string passPhrase = "SayyehBanstring";
     private static readonly int keysize = 256;
 
-    public static string Encrypt(string plainText)
+    public static string Encrypt(string plainText, string initVector, string passPhrase)
     {
         byte[] bytes1 = Encoding.UTF8.GetBytes(initVector);
         byte[] bytes2 = Encoding.UTF8.GetBytes(plainText);
@@ -29,7 +29,7 @@ public static class StringEncryptor
         return Convert.ToBase64String(array);
     }
 
-    public static string Decrypt(string cipherText)
+    public static string Decrypt(string cipherText, string initVector, string passPhrase)
     {
         byte[] bytes1 = Encoding.ASCII.GetBytes(initVector);
         byte[] buffer = Convert.FromBase64String(cipherText);
@@ -48,26 +48,27 @@ public static class StringEncryptor
         return Encoding.UTF8.GetString(numArray, 0, count);
     }
 
-    public static string DecryptConnectionString(string plainText)
+    public static string DecryptConnectionString(string plainText, string initVector, string passPhrase)
     {
         try
         {
             int num1 = plainText.IndexOf("||");
             if (num1 == -1)
             {
-                return Decrypt(plainText);
+                return Decrypt(plainText, initVector, passPhrase);
             }
 
             int num2 = num1 + 1;
             string str = plainText.Substring(0, num2 - 1);
             string cipherText = plainText.Substring(num2 + 1, plainText.Length - (num2 + 1));
-            return str + Decrypt(cipherText);
+            return str + Decrypt(cipherText, initVector, passPhrase);
         }
         catch (Exception)
         {
             return string.Empty;
         }
     }
+
 }
 //string plainText = "متن مورد نظر برای رمزنگاری";
 //string encryptedText = StringEncryptor.Encrypt(plainText);

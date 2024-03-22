@@ -4,12 +4,12 @@ namespace SayyehBanTools.ConnectionDB;
 
 public class SqlServerConnection
 {
-    public static string ConnectionString(string DataSource,string InitialCatalog,string UserId,string Password)
+    public static string ConnectionString(string DataSource,string InitialCatalog,string UserId,string Password, string initVector, string passPhrase)
     {
-        string dataSource = StringEncryptor.Decrypt(DataSource);
-        string initialCatalog = StringEncryptor.Decrypt(InitialCatalog);
-        string userId = StringEncryptor.Decrypt(UserId);
-        string password = StringEncryptor.Decrypt(Password);
+        string dataSource = StringEncryptor.Decrypt(DataSource, initVector, passPhrase);
+        string initialCatalog = StringEncryptor.Decrypt(InitialCatalog, initVector, passPhrase);
+        string userId = StringEncryptor.Decrypt(UserId, initVector, passPhrase);
+        string password = StringEncryptor.Decrypt(Password, initVector, passPhrase);
         string connectionString = $"Data Source={dataSource};" +
                                  $"Initial Catalog={initialCatalog};" +
                                  $"User ID={userId};" +
@@ -21,12 +21,12 @@ public class SqlServerConnection
 
         return connectionString;
     }
-    public static string ConnectionString(string DataSource,string InitialCatalog,string UserId,string Password,short ConnectTimeout,int MaxPoolSize,bool IntegratedSecurity,bool TrustServerCertificate)
+    public static string ConnectionString(string DataSource,string InitialCatalog,string UserId,string Password,short ConnectTimeout,int MaxPoolSize,bool IntegratedSecurity,bool TrustServerCertificate, string initVector, string passPhrase)
     {
-        string dataSource = StringEncryptor.Decrypt(DataSource);
-        string initialCatalog = StringEncryptor.Decrypt(InitialCatalog);
-        string userId = StringEncryptor.Decrypt(UserId);
-        string password = StringEncryptor.Decrypt(Password);
+        string dataSource = StringEncryptor.Decrypt(DataSource, initVector, passPhrase);
+        string initialCatalog = StringEncryptor.Decrypt(InitialCatalog, initVector, passPhrase);
+        string userId = StringEncryptor.Decrypt(UserId, initVector, passPhrase);
+        string password = StringEncryptor.Decrypt(Password, initVector, passPhrase);
         string connectionString = $"Data Source={dataSource};" +
                                  $"Initial Catalog={initialCatalog};" +
                                  $"User ID={userId};" +
