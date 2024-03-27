@@ -258,6 +258,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SayyehBanTools.GenerateValue.GenerateValue.Generate16ValueRandome">
+            <summary>
+            تولید عدد و حروف تصادفی به تعداد 16 تا
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:SayyehBanTools.GenerateValue.SayyehBan.GenerateCode">
             نحوه بررسی کد سایه بان
                if (!IsValidCode(textBox2.Text))
