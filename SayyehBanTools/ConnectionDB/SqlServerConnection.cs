@@ -14,10 +14,10 @@ public class SqlServerConnection
                                  $"Initial Catalog={initialCatalog};" +
                                  $"User ID={userId};" +
                                  $"Password={password};" +
-                                 $"Connect Timeout=0;" +
-                                 $"Max Pool Size=2000;" +
-                                 $"Integrated Security=False" +
-                                 $"Trust Server Certificate=True";
+                                 "Connect Timeout=0;" +
+                                 "Max Pool Size=20000;" +
+                                 "Integrated Security=False;" +
+                                 "Trust Server Certificate=True;";
 
         return connectionString;
     }
