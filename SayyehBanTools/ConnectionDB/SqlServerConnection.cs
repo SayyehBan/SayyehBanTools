@@ -4,7 +4,7 @@ namespace SayyehBanTools.ConnectionDB;
 
 public class SqlServerConnection
 {
-    public static string ConnectionString(string DataSource,string InitialCatalog,string UserId,string Password, string initVector, string passPhrase, short? ConnectTimeout, int? MaxPoolSize, bool? Integrated_Security, bool? TrustServerCertificate)
+    public static string ConnectionString(string DataSource,string InitialCatalog,string UserId,string Password, string initVector, string passPhrase)
     {
         string dataSource = StringEncryptor.Decrypt(DataSource, initVector, passPhrase);
         string initialCatalog = StringEncryptor.Decrypt(InitialCatalog, initVector, passPhrase);
@@ -14,10 +14,10 @@ public class SqlServerConnection
                                  $"Initial Catalog={initialCatalog};" +
                                  $"User ID={userId};" +
                                  $"Password={password};" +
-                                 $"Connect Timeout={(ConnectTimeout != null ? ConnectTimeout.ToString() : "0")};" +
-                                 $"Max Pool Size={(MaxPoolSize != null ? MaxPoolSize.ToString() : "2000")};" +
-                                 $"Integrated Security={(Integrated_Security != null ? Integrated_Security.ToString() : "False")};" +
-                                 $"Trust Server Certificate={(TrustServerCertificate != null ? TrustServerCertificate.ToString() : "True")};";
+                                 $"Connect Timeout=0;" +
+                                 $"Max Pool Size=2000;" +
+                                 $"Integrated Security=False" +
+                                 $"Trust Server Certificate=True";
 
         return connectionString;
     }
