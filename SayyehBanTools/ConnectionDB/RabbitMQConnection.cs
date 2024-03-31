@@ -4,19 +4,22 @@ namespace SayyehBanTools.ConnectionDB;
 
 public class RabbitMQConnection
 {
-    public static string DefaultConnection()
+    public static Uri DefaultConnection()
     {
         string connection = "amqp://guest:guest@localhost:5672";
-        return connection;
+        Uri uri = new Uri(connection);
+        return uri;
     }
-    public static string DynamicConnection(string Username, string Password, string Url, string Port, string InitVector, string PassPhrase)
+
+    public static Uri DynamicConnection(string Username, string Password, string Url, string Port, string InitVector, string PassPhrase)
     {
         string username = StringEncryptor.Decrypt(Username, InitVector, PassPhrase);
         string password = StringEncryptor.Decrypt(Password, InitVector, PassPhrase);
         string url = StringEncryptor.Decrypt(Url, InitVector, PassPhrase);
         string port = StringEncryptor.Decrypt(Port, InitVector, PassPhrase);
         string connection = $"amqp://{username}:{password}@{url}:{port}";
-        return connection;
+        Uri uri = new Uri(connection);
+        return uri;
     }
 }
 //string plainText = "متن مورد نظر برای رمزنگاری";
