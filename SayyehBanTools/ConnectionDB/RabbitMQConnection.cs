@@ -19,3 +19,9 @@ public class RabbitMQConnection
         return connection;
     }
 }
+//string plainText = "متن مورد نظر برای رمزنگاری";
+//string encryptedText = StringEncryptor.Encrypt(plainText);
+//string encryptedText = "متن رمزنگاری شده";
+//string plainText = StringEncryptor.Decrypt(encryptedText);
+//string plainText = "ConnectionString||密文";
+//string connectionString = StringEncryptor.DecryptConnectionString(plainText);
