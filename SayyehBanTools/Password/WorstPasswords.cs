@@ -5,7 +5,12 @@ namespace SayyehBanTools.Password;
 
 public class WorstPasswords
 {
+
     public List<string> CommonPassword { get; set; }
+    public WorstPasswords()
+    {
+        CommonPassword = new List<string>();
+    }
 
     public async Task LoadCommonPasswords(string directFile)
     {
@@ -44,16 +49,20 @@ public class WorstPasswords
  طریقه استفاده از دستورمورد نظر
 public class MyPasswordValidator : IPasswordValidator<User>
 {
+    private readonly IWebHostEnvironment _environment;
     private WorstPasswords worstPasswords;
 
-    public MyPasswordValidator()
+    public MyPasswordValidator(IWebHostEnvironment environment)
     {
+        _environment = environment;
         worstPasswords = new WorstPasswords();
     }
 
+
     public async Task<IdentityResult> ValidateAsync(UserManager<User> manager, User user, string? password)
     {
-        await worstPasswords.LoadCommonPasswords("wwwroot//file//worst-passwords.txt");
+        string filePath = Path.Combine(_environment.WebRootPath, "file", "worst-passwords.txt");
+        await worstPasswords.LoadCommonPasswords(filePath);
 
         string hashedPassword = worstPasswords.ComputeSha256Hash(password);
 
