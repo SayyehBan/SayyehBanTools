@@ -228,5 +228,17 @@ public static class StringExtensions
     {
         return source.Replace("-", " ");
     }
+    /// <summary>
+    /// پیدا کردن 
+    /// IP ::1
+    /// و جایگزاری 
+    /// IP 127.0.0.1 تا در اجرا لحظه خطا نخورم
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static string AnonymousIP(this string source)
+    {
+        return source.Replace("::1", "127.0.0.1");
+    }
 
 }

@@ -240,6 +240,16 @@
              <param name="source">رشته ورودی.</param>
              <returns> رشته با فضاهای خط‌تیره جایگزین شده توسط خالی.</returns>
         </member>
+        <member name="M:SayyehBanTools.Converter.StringExtensions.AnonymousIP(System.String)">
+            <summary>
+            پیدا کردن 
+            IP ::1
+            و جایگزاری 
+            IP 127.0.0.1 تا در اجرا لحظه خطا نخورم
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
         <member name="M:SayyehBanTools.Extensions.PagingExtensions.PagedResult``2(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Boolean,System.Int32@)">
             <summary>
             صفحه بندی کوئری
