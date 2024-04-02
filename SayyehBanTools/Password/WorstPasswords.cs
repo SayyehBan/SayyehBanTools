@@ -40,3 +40,38 @@ public class WorstPasswords
         }
     }
 }
+/*
+ طریقه استفاده از دستورمورد نظر
+public class MyPasswordValidator : IPasswordValidator<User>
+{
+    private WorstPasswords worstPasswords;
+
+    public MyPasswordValidator()
+    {
+        worstPasswords = new WorstPasswords();
+    }
+
+    public async Task<IdentityResult> ValidateAsync(UserManager<User> manager, User user, string? password)
+    {
+        await worstPasswords.LoadCommonPasswords("wwwroot//file//worst-passwords.txt");
+
+        string hashedPassword = worstPasswords.ComputeSha256Hash(password);
+
+        if (worstPasswords.CommonPassword.Contains(hashedPassword))
+        {
+            return GetFailedIdentityResult();
+        }
+
+        return IdentityResult.Success;
+    }
+
+    private IdentityResult GetFailedIdentityResult()
+    {
+        return IdentityResult.Failed(new IdentityError
+        {
+            Code = "CommonPassword",
+            Description = "پسورد شما قابل شناسایی توسط ربات های هکر است! لطفا یک پسورد قوی انتخاب کنید",
+        });
+    }
+}
+ */
