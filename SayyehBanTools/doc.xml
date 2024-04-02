@@ -4,6 +4,16 @@
         <name>SayyehBanTools</name>
     </assembly>
     <members>
+        <member name="M:SayyehBanTools.AccessDenied.IPAccess.IsInRange(System.String,System.String,System.String)">
+            <summary>
+            بررسی شروع و پایان 
+            IP
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="rangeStart"></param>
+            <param name="rangeEnd"></param>
+            <returns></returns>
+        </member>
         <member name="M:SayyehBanTools.Calc.Calculator.Multiply(System.Double[])">
             <summary>
             انجام عملیات ضرب
