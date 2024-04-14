@@ -1,4 +1,5 @@
-﻿using RabbitMQ.Client;
+﻿using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
 using SayyehBanTools.Encryptor;
 using SayyehBanTools.MessagingBus.RabbitMQ.Model;
 
@@ -8,19 +9,18 @@ public class RabbitMQConnection
 {
     private readonly RabbitMqConnectionSettings _rabbitMqConnectionSettings;
     private readonly string _hostname;
-    private readonly string _queueName;
     private readonly string _username;
     private readonly string _password;
     private readonly int _port;
-    public IConnection Connection { get;  set; }
-    public IModel Channel { get;  set; }
+    public IConnection Connection { get; set; }
+    public IModel Channel { get; set; }
     public RabbitMQConnection()
     {
-        
+
     }
-    public RabbitMQConnection(RabbitMqConnectionSettings rabbitMqConnectionSettings)
+    public RabbitMQConnection(IOptions<RabbitMqConnectionSettings> rabbitMqConnectionSettings)
     {
-        _rabbitMqConnectionSettings = rabbitMqConnectionSettings;
+        _rabbitMqConnectionSettings = rabbitMqConnectionSettings.Value;
         _hostname = StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Hostname, _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase);
         _username = StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Username, _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase);
         _password = StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Password, _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase);

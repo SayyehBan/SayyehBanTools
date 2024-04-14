@@ -12,19 +12,21 @@ public interface ISendMessages
 }
 public class RabbitMQMessageBus : ISendMessages
 {
-    private readonly RabbitMQConnection rabbitMQConnection;
 
-    public RabbitMQMessageBus(RabbitMQConnection RabbitMQConnection)
+    private readonly RabbitMQConnection _rabbitMqConnection;
+
+    public RabbitMQMessageBus(RabbitMQConnection rabbitMqConnection)
     {
-        rabbitMQConnection = RabbitMQConnection; 
-        rabbitMQConnection.CheckRabbitMQConnection();
+        _rabbitMqConnection = rabbitMqConnection;
+        _rabbitMqConnection.CreateRabbitMQConnection();
     }
+    
 
     public void SendMessage(BaseMessage message, string QueueName)
     {
-        if (rabbitMQConnection.CheckRabbitMQConnection())
+        if (_rabbitMqConnection.CheckRabbitMQConnection())
         {
-            using (var channel = rabbitMQConnection.Connection.CreateModel())
+            using (var channel = _rabbitMqConnection.Connection.CreateModel())
             {
                 channel.QueueDeclare(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
