@@ -9,13 +9,12 @@ public static class StringEncryptor
 
     public static string Encrypt(string plainText, string initVector, string passPhrase)
     {
-        byte[] bytes1 = Encoding.UTF8.GetBytes(initVector);
+        byte[] bytes1 = Encoding.UTF8.GetBytes(initVector.Substring(0, 16));
         byte[] bytes2 = Encoding.UTF8.GetBytes(plainText);
-        byte[] bytes3 = new PasswordDeriveBytes(passPhrase, null).GetBytes(keysize / 8);
+        byte[] bytes3 = new PasswordDeriveBytes(passPhrase.Substring(0, 16), null).GetBytes(keysize / 8);
         RijndaelManaged rijndaelManaged = new RijndaelManaged
         {
             Mode = CipherMode.CBC,
-            Padding = PaddingMode.PKCS7 // Specify padding mode
         };
         ICryptoTransform encryptor = rijndaelManaged.CreateEncryptor(bytes3, bytes1);
         MemoryStream memoryStream = new MemoryStream();
@@ -28,24 +27,59 @@ public static class StringEncryptor
         return Convert.ToBase64String(array);
     }
 
+    //public static string Decrypt(string cipherText, string initVector, string passPhrase)
+    //{
+    //    byte[] bytes1 = Encoding.UTF8.GetBytes(initVector.Substring(0, 16));
+    //    byte[] buffer = Convert.FromBase64String(cipherText);
+    //    byte[] bytes2 = new PasswordDeriveBytes(passPhrase.Substring(0, 16), null).GetBytes(keysize / 8);
+    //    RijndaelManaged rijndaelManaged = new RijndaelManaged
+    //    {
+    //        Mode = CipherMode.CBC,
+    //    };
+    //    ICryptoTransform decryptor = rijndaelManaged.CreateDecryptor(bytes2, bytes1);
+    //    MemoryStream memoryStream = new MemoryStream(buffer);
+    //    CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+    //    byte[] numArray = new byte[buffer.Length];
+    //    int count = cryptoStream.Read(numArray, 0, numArray.Length);
+    //    memoryStream.Close();
+    //    cryptoStream.Close();
+    //    return Encoding.UTF8.GetString(numArray, 0, count);
+    //}
     public static string Decrypt(string cipherText, string initVector, string passPhrase)
     {
-        byte[] bytes1 = Encoding.ASCII.GetBytes(initVector);
+        byte[] bytes1 = Encoding.UTF8.GetBytes(initVector);
         byte[] buffer = Convert.FromBase64String(cipherText);
         byte[] bytes2 = new PasswordDeriveBytes(passPhrase, null).GetBytes(keysize / 8);
+
         RijndaelManaged rijndaelManaged = new RijndaelManaged
         {
-            Mode = CipherMode.CBC,
-            Padding = PaddingMode.PKCS7 // Specify padding mode
+            Mode = CipherMode.CBC
         };
+
         ICryptoTransform decryptor = rijndaelManaged.CreateDecryptor(bytes2, bytes1);
-        MemoryStream memoryStream = new MemoryStream(buffer);
-        CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-        byte[] numArray = new byte[buffer.Length];
-        int count = cryptoStream.Read(numArray, 0, numArray.Length);
-        memoryStream.Close();
-        cryptoStream.Close();
-        return Encoding.UTF8.GetString(numArray, 0, count);
+        using (MemoryStream memoryStream = new MemoryStream(buffer))
+        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+        {
+            int bytesRead = 0;
+            List<byte> decryptedBytes = new List<byte>();
+
+            // Read decrypted data in chunks until the end of the stream
+            do
+            {
+                byte[] chunk = new byte[4096]; // Adjust buffer size as needed
+                bytesRead = cryptoStream.Read(chunk, 0, chunk.Length);
+                decryptedBytes.AddRange(chunk.Take(bytesRead));
+            } while (bytesRead > 0);
+
+            // Remove padding bytes (if applicable)
+            //if (rijndaelManaged.Padding == PaddingMode.PKCS7)
+            //{
+            //    int paddingSize = decryptedBytes[decryptedBytes.Count - 1];
+            //    decryptedBytes.RemoveRange(decryptedBytes.Count - paddingSize, paddingSize);
+            //}
+
+            return Encoding.UTF8.GetString(decryptedBytes.ToArray());
+        }
     }
 
     public static string DecryptConnectionString(string plainText, string initVector, string passPhrase)
@@ -53,7 +87,7 @@ public static class StringEncryptor
         int num1 = plainText.IndexOf("||");
         if (num1 == -1)
         {
-            return Decrypt(plainText, initVector, passPhrase);
+            return Decrypt(plainText, initVector.Substring(0, 16), passPhrase.Substring(0, 16));
         }
 
         int num2 = num1 + 1;
@@ -61,7 +95,7 @@ public static class StringEncryptor
         string cipherText = plainText.Substring(num2 + 1, plainText.Length - (num2 + 1));
         try
         {
-            return str + Decrypt(cipherText, initVector, passPhrase);
+            return str + Decrypt(cipherText, initVector.Substring(0, 16), passPhrase.Substring(0, 16));
         }
         catch (Exception)
         {
@@ -72,7 +106,7 @@ public static class StringEncryptor
 
 /*
  طریقه استفاده از دستور
-string encryptedText = StringEncryptDecryptLength16.Encrypt(plainText, initVector, passPhrase);
-string decryptedText = StringEncryptDecryptLength16.Decrypt(encryptedText, initVector, passPhrase);
+string encryptedText = StringEncryptor.Encrypt(plainText, initVector, passPhrase);
+string decryptedText = StringEncryptor.Decrypt(encryptedText, initVector, passPhrase);
 
  */
