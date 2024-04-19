@@ -10,6 +10,14 @@ public class RabbitMqConnectionSettings
     public string InitVector { get; set; }
     public string PassPhrase { get; set; }
 }
+public class RabbitMqConnectionSettingsNormal
+{
+    public string Hostname { get; set; }
+    public string Port { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string queue { get; set; }
+}
 
 /*
  طریقه دادن اطلاعات به 

@@ -5,26 +5,24 @@ using SayyehBanTools.MessagingBus.RabbitMQ.Model;
 
 namespace SayyehBanTools.MessagingBus.RabbitMQ.Connection;
 
-public class RabbitMQConnection
+public class RabbitMQConnectionNormal
 {
-    private readonly RabbitMqConnectionSettings _rabbitMqConnectionSettings;
+    private readonly RabbitMqConnectionSettingsNormal _rabbitMqConnectionSettingsNormal;
     private readonly string _hostname;
     private readonly string _username;
     private readonly string _password;
     private readonly int _port;
     public IConnection Connection { get; set; }
     public IModel Channel { get; set; }
-    public RabbitMQConnection()
+    public RabbitMQConnectionNormal()
     {
 
     }
-    public RabbitMQConnection(IOptions<RabbitMqConnectionSettings> rabbitMqConnectionSettings)
+    public RabbitMQConnectionNormal(IOptions<RabbitMqConnectionSettingsNormal> rabbitMqConnectionSettingsNormal)
     {
-        _rabbitMqConnectionSettings = rabbitMqConnectionSettings.Value;
-        _hostname = StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Hostname, _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase);
-        _username = StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Username, _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase);
-        _password = StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Password, _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase);
-        _port = Convert.ToInt32(StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Port.ToString(), _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase));
+        _rabbitMqConnectionSettingsNormal = rabbitMqConnectionSettingsNormal.Value;
+
+        _port = Convert.ToInt32(_rabbitMqConnectionSettingsNormal.Port.ToString());
     }
     public void CreateRabbitMQConnection()
     {

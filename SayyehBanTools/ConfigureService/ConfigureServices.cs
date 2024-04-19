@@ -9,7 +9,9 @@ public class ConfigureServices
     public void ConfigureService(IServiceCollection services)
     {
         services.AddTransient<RabbitMQConnection, RabbitMQConnection>();
+        services.AddTransient<RabbitMQConnectionNormal, RabbitMQConnectionNormal>();
         services.AddTransient<ISendMessages, RabbitMQMessageBus>();
+        services.AddTransient<ISendMessages, RabbitMQMessageBusNormal>();
     }
 }
 /*
