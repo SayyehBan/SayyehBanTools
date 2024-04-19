@@ -1,62 +1,8 @@
-﻿using Newtonsoft.Json;
-using RabbitMQ.Client;
-using SayyehBanTools.MessagingBus.RabbitMQ.Connection;
-using SayyehBanTools.MessagingBus.RabbitMQ.Model;
-using System.Text;
+﻿using SayyehBanTools.MessagingBus.RabbitMQ.Model;
 
 namespace SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
 
 public interface ISendMessages
 {
     void SendMessage(BaseMessage message, string QueueName);
-}
-public class RabbitMQMessageBus : ISendMessages
-{
-
-    private readonly RabbitMQConnection _rabbitMqConnection;
-    public RabbitMQMessageBus(RabbitMQConnection rabbitMqConnection)
-    {
-        _rabbitMqConnection = rabbitMqConnection;
-    }
-    public void SendMessage(BaseMessage message, string QueueName)
-    {
-        if (_rabbitMqConnection.CheckRabbitMQConnection())
-        {
-            using (var channel = _rabbitMqConnection.Connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-
-                var json = JsonConvert.SerializeObject(message);
-                var body = Encoding.UTF8.GetBytes(json);
-                var Properties = channel.CreateBasicProperties();
-                Properties.Persistent = true;
-                channel.BasicPublish(exchange: "", routingKey: QueueName, basicProperties: Properties, body: body);
-            }
-        }
-    }
-}
-public class RabbitMQMessageBusNormal : ISendMessages
-{
-
-    private readonly RabbitMQConnectionNormal _rabbitMqConnectionNormal;
-    public RabbitMQMessageBusNormal(RabbitMQConnectionNormal rabbitMqConnectionNormal)
-    {
-        _rabbitMqConnectionNormal = rabbitMqConnectionNormal;
-    }
-    public void SendMessage(BaseMessage message, string QueueName)
-    {
-        if (_rabbitMqConnectionNormal.CheckRabbitMQConnection())
-        {
-            using (var channel = _rabbitMqConnectionNormal.Connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-
-                var json = JsonConvert.SerializeObject(message);
-                var body = Encoding.UTF8.GetBytes(json);
-                var Properties = channel.CreateBasicProperties();
-                Properties.Persistent = true;
-                channel.BasicPublish(exchange: "", routingKey: QueueName, basicProperties: Properties, body: body);
-            }
-        }
-    }
 }
