@@ -21,6 +21,12 @@ public class RabbitMQConnection
         Uri uri = new Uri(connection);
         return uri;
     }
+    public static Uri RabbitMQ(string Username, string Password, string Url, string Port)
+    {
+        string connection = $"amqp://{Username}:{Password}@{Url}:{Port}";
+        Uri uri = new Uri(connection);
+        return uri;
+    }
     public static Uri CloudAMQP(string Username, string Password, string Url,  string InitVector, string PassPhrase)
     {
         string username = StringEncryptor.Decrypt(Username, InitVector, PassPhrase);
@@ -28,6 +34,13 @@ public class RabbitMQConnection
         string url = StringEncryptor.Decrypt(Url, InitVector, PassPhrase);
      
         string connection = $"amqps://{username}:{password}@{url}";
+        Uri uri = new Uri(connection);
+        return uri;
+    }
+    public static Uri CloudAMQP(string Username, string Password, string Url)
+    {
+     
+        string connection = $"amqps://{Username}:{Password}@{Url}";
         Uri uri = new Uri(connection);
         return uri;
     }

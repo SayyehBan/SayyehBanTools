@@ -5,8 +5,6 @@ namespace SayyehBanTools.Encryptor;
 
 public static class StringEncryptor
 {
-    //private static readonly string initVector = "tu89geji340t89u2";
-    //private static readonly string passPhrase = "SayyehBanstring";
     private static readonly int keysize = 256;
 
     public static string Encrypt(string plainText, string initVector, string passPhrase)
@@ -16,7 +14,8 @@ public static class StringEncryptor
         byte[] bytes3 = new PasswordDeriveBytes(passPhrase, null).GetBytes(keysize / 8);
         RijndaelManaged rijndaelManaged = new RijndaelManaged
         {
-            Mode = CipherMode.CBC
+            Mode = CipherMode.CBC,
+            Padding = PaddingMode.PKCS7 // Specify padding mode
         };
         ICryptoTransform encryptor = rijndaelManaged.CreateEncryptor(bytes3, bytes1);
         MemoryStream memoryStream = new MemoryStream();
@@ -36,7 +35,8 @@ public static class StringEncryptor
         byte[] bytes2 = new PasswordDeriveBytes(passPhrase, null).GetBytes(keysize / 8);
         RijndaelManaged rijndaelManaged = new RijndaelManaged
         {
-            Mode = CipherMode.CBC
+            Mode = CipherMode.CBC,
+            Padding = PaddingMode.PKCS7 // Specify padding mode
         };
         ICryptoTransform decryptor = rijndaelManaged.CreateDecryptor(bytes2, bytes1);
         MemoryStream memoryStream = new MemoryStream(buffer);
@@ -50,17 +50,17 @@ public static class StringEncryptor
 
     public static string DecryptConnectionString(string plainText, string initVector, string passPhrase)
     {
+        int num1 = plainText.IndexOf("||");
+        if (num1 == -1)
+        {
+            return Decrypt(plainText, initVector, passPhrase);
+        }
+
+        int num2 = num1 + 1;
+        string str = plainText.Substring(0, num2 - 1);
+        string cipherText = plainText.Substring(num2 + 1, plainText.Length - (num2 + 1));
         try
         {
-            int num1 = plainText.IndexOf("||");
-            if (num1 == -1)
-            {
-                return Decrypt(plainText, initVector, passPhrase);
-            }
-
-            int num2 = num1 + 1;
-            string str = plainText.Substring(0, num2 - 1);
-            string cipherText = plainText.Substring(num2 + 1, plainText.Length - (num2 + 1));
             return str + Decrypt(cipherText, initVector, passPhrase);
         }
         catch (Exception)
@@ -68,11 +68,11 @@ public static class StringEncryptor
             return string.Empty;
         }
     }
-
 }
-//string plainText = "متن مورد نظر برای رمزنگاری";
-//string encryptedText = StringEncryptor.Encrypt(plainText);
-//string encryptedText = "متن رمزنگاری شده";
-//string plainText = StringEncryptor.Decrypt(encryptedText);
-//string plainText = "ConnectionString||密文";
-//string connectionString = StringEncryptor.DecryptConnectionString(plainText);
+
+/*
+ طریقه استفاده از دستور
+string encryptedText = StringEncryptDecryptLength16.Encrypt(plainText, initVector, passPhrase);
+string decryptedText = StringEncryptDecryptLength16.Decrypt(encryptedText, initVector, passPhrase);
+
+ */

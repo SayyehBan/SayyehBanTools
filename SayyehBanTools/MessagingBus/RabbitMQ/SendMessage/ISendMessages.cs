@@ -14,14 +14,10 @@ public class RabbitMQMessageBus : ISendMessages
 {
 
     private readonly RabbitMQConnection _rabbitMqConnection;
-
     public RabbitMQMessageBus(RabbitMQConnection rabbitMqConnection)
     {
         _rabbitMqConnection = rabbitMqConnection;
-        _rabbitMqConnection.CreateRabbitMQConnection();
     }
-    
-
     public void SendMessage(BaseMessage message, string QueueName)
     {
         if (_rabbitMqConnection.CheckRabbitMQConnection())
