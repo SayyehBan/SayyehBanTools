@@ -46,26 +46,52 @@ public class SendSmsPattern
             return (null, ex.Message); // Return null response and error message
         }
     }
+    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendNormalSingleAsync(string APILink, string APIKey, string from, string[] to, string Message, DateTime DateTimeSender)
+    {
+        // ایجاد JSON payload
+        string jsonPayload = JsonConvert.SerializeObject(new
+        {
+            sender = from,
+            recipient = to,
+            time = DateTimeSender,
+            message = Message,
+        });
+
+        try
+        {
+            // ساخت درخواست HTTP POST
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(APILink ?? "https://api2.ippanel.com/api/v1/sms/send/webservice/single");
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Headers["apikey"] = APIKey;
+
+            // ارسال JSON payload به صورت ناهمزمان
+            using (var writer = new StreamWriter(await request.GetRequestStreamAsync()))
+            {
+                await writer.WriteAsync(jsonPayload);
+                await writer.FlushAsync(); // اطمینان حاصل کنید که داده قبل از بستن جریان فرستاده شود
+            }
+
+            // دریافت پاسخ به صورت ناهمزمان
+            HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                string responseContent = await reader.ReadToEndAsync();
+                return (response, responseContent);
+            }
+        }
+        catch (WebException ex)
+        {
+            Console.WriteLine("Error sending SMS: " + ex.Message);
+            return (null, ex.Message); // بازگرداندن پاسخ و متن خطا
+        }
+    }
+
+
 
 }
 /*
- Dictionary<string, object> dicDataSMS = new Dictionary<string, object>
-            {
-                ["DisposablePassword"] = DisposablePassword,
-                ["Cemetery"] = Cemetery,
-            };
-            //string message = "رمز یکبار مصرف : " + DisposablePassword + " \n آرامستان " + Cemetery;
-            if (IsActive == true)
-            {
-                var (response, responseContent) = await SendSmsPattern.SendPatternAsync(null, API, dicDataSMS, "86hpqw3d9mvkvw4", Number, Mobile);
-
-                if (response != null)
-                {
-                    Console.WriteLine("SMS response status code: " + response.StatusCode);
-                    Console.WriteLine("SMS response content: " + JsonConvert.DeserializeObject(responseContent));
-                }
-                else
-                {
-                    Console.WriteLine("Error sending SMS: " + JsonConvert.DeserializeObject(responseContent)); // Handle error message
-                }
+How Use Source
+https://github.com/SayyehBan/SendSMSSayyehBan/blob/master/SendSMSSayyehBan/Controllers/SMS_SayyehBanController.cs
  */
