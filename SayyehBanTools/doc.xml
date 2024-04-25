@@ -288,6 +288,47 @@
             نحوه بررسی کد سایه بان
                if (!IsValidCode(textBox2.Text))
         </member>
+        <member name="M:SayyehBanTools.Sender.SMS_System.SendPatternAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.String,System.String)">
+            <summary>
+            ارسال به صورت پترن
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="data"></param>
+            <param name="patternCode"></param>
+            <param name="from"></param>
+            <param name="to"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Sender.SMS_System.SendNormalSingleAsync(System.String,System.String,System.String,System.String[],System.String,System.DateTime)">
+            <summary>
+            ارسال به صورت معمولی
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="from"></param>
+            <param name="to"></param>
+            <param name="Message"></param>
+            <param name="DateTimeSender"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Sender.SMS_System.GetCreditAsync(System.String,System.String)">
+            <summary>
+            نمایش هزینه پانل
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayyehBanTools.Sender.SMS_System.GetSendListAsync(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            نمایش پیام های ارسال شده    /// </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="page"></param>
+            <param name="per_page"></param>
+            <returns></returns>
+        </member>
         <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.miladi2shamsi(System.DateTime)">
             <summary>
             کد مربوط به تاریخ به صورت ماه و روز
