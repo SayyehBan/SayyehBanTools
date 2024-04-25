@@ -312,6 +312,17 @@
             <param name="DateTimeSender"></param>
             <returns></returns>
         </member>
+        <member name="M:SayyehBanTools.Sender.SMS_System.SendPeerToPeerAsync(System.String,System.String,System.Collections.Generic.List{System.Collections.Generic.List{System.String}},System.String,System.String[])">
+            <summary>
+            این کد یک تابع C# به نام SendPeerToPeerAsync است که به صورت ناهمزمان برای ارسال پیامک‌های چند گیرنده به یک API با روش POST عمل می‌کند.
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="Recipients"></param>
+            <param name="Sender"></param>
+            <param name="Messages"></param>
+            <returns></returns>
+        </member>
         <member name="M:SayyehBanTools.Sender.SMS_System.GetCreditAsync(System.String,System.String)">
             <summary>
             نمایش هزینه پانل
@@ -322,7 +333,8 @@
         </member>
         <member name="M:SayyehBanTools.Sender.SMS_System.GetSendListAsync(System.String,System.String,System.Int32,System.Int32)">
             <summary>
-            نمایش پیام های ارسال شده    /// </summary>
+            نمایش پیام های ارسال شده   
+            /// </summary>
             <param name="APILink"></param>
             <param name="APIKey"></param>
             <param name="page"></param>

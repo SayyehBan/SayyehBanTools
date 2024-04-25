@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SayyehBanTools.Converter;
 using System.Net;
 
 namespace SayyehBanTools.Sender;
@@ -108,6 +109,77 @@ public class SMS_System
         }
     }
     /// <summary>
+    /// این کد یک تابع C# به نام SendPeerToPeerAsync است که به صورت ناهمزمان برای ارسال پیامک‌های چند گیرنده به یک API با روش POST عمل می‌کند.
+    /// </summary>
+    /// <param name="APILink"></param>
+    /// <param name="APIKey"></param>
+    /// <param name="Recipients"></param>
+    /// <param name="Sender"></param>
+    /// <param name="Messages"></param>
+    /// <returns></returns>
+    public static async Task<(string ResponseContent, int StatusCode)> SendPeerToPeerAsync(string APILink, string APIKey, List<List<string>> Recipients, string FromNumber, string[] Messages)
+    {
+        try
+        {
+            // ایجاد JSON payload
+            var jsonPayload = new Dictionary<string, object>()
+            {
+                ["recipient"] = Recipients,
+                ["sending_type"] = "webservice",
+                ["sender"] = FromNumber,
+                ["message"] = Messages,
+            };
+
+            string jsonString = JsonConvert.SerializeObject(jsonPayload);
+
+            // ایجاد درخواست HTTP POST
+            var request = (HttpWebRequest)WebRequest.Create(APILink ?? "https://api2.ippanel.com/api/v1/sms/send/webservice/peer-to-peer");
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Headers["Accept"] = "application/json"; // سربرگ پذیرش را اضافه کنید (اختیاری)
+            request.Headers["apikey"] = APIKey;
+
+            // ارسال JSON payload به صورت ناهمزمان
+            using (var streamWriter = new StreamWriter(await request.GetRequestStreamAsync()))
+            {
+                await streamWriter.WriteAsync(jsonString);
+                await streamWriter.FlushAsync();
+            }
+
+            // دریافت پاسخ
+            using (var response = (HttpWebResponse)await request.GetResponseAsync())
+            {
+                // بررسی کد وضعیت
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    // خواندن محتوای پاسخ
+                    using (var stream = response.GetResponseStream())
+                    using (var reader = new StreamReader(stream))
+                    {
+                        string responseContent = await reader.ReadToEndAsync();
+                        return (responseContent, (int)response.StatusCode);
+                    }
+                }
+                else
+                {
+                    throw new WebException($"Error sending SMS: {response.StatusCode}");
+                }
+            }
+        }
+        catch (WebException ex)
+        {
+            Console.WriteLine("Error sending SMS: " + ex.Message);
+            return ("", -1); // Return empty content and error status code
+        }
+    }
+    //public class Recipient
+    //{
+    //    /// <summary>
+    //    ///  دریافت شماره مخاطب به صورت آرایه که به صورت ناهمزمان بهشون پیام ارسال بشه
+    //    /// </summary>
+    //    public string[] PhoneNumbers { get; set; }
+    //}
+    /// <summary>
     /// نمایش هزینه پانل
     /// </summary>
     /// <param name="APILink"></param>
@@ -151,13 +223,14 @@ public class SMS_System
         }
     }
     /// <summary>
-    /// نمایش پیام های ارسال شده    /// </summary>
+    /// نمایش پیام های ارسال شده   
+    /// /// </summary>
     /// <param name="APILink"></param>
     /// <param name="APIKey"></param>
     /// <param name="page"></param>
     /// <param name="per_page"></param>
     /// <returns></returns>
-    public static async Task<(string ResponseContent, int StatusCode)> GetSendListAsync(string APILink, string APIKey,int page,int per_page)
+    public static async Task<(string ResponseContent, int StatusCode)> GetSendListAsync(string APILink, string APIKey, int page, int per_page)
     {
         try
         {
@@ -194,6 +267,7 @@ public class SMS_System
             return ("", -1); // Return empty content and error status code
         }
     }
+
 
 }
 /*
