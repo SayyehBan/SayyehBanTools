@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using SayyehBanTools.Converter;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace SayyehBanTools.Sender;
@@ -109,12 +109,12 @@ public class SMS_System
         }
     }
     /// <summary>
-    /// این کد یک تابع C# به نام SendPeerToPeerAsync است که به صورت ناهمزمان برای ارسال پیامک‌های چند گیرنده به یک API با روش POST عمل می‌کند.
+    /// این کد یک تابع C# به نام SendPeerToPeerAsync است که به صورت همزمان برای ارسال پیامک‌های چند گیرنده به یک API با روش POST عمل می‌کند.
     /// </summary>
     /// <param name="APILink"></param>
     /// <param name="APIKey"></param>
     /// <param name="Recipients"></param>
-    /// <param name="Sender"></param>
+    /// <param name="FromNumber"></param>
     /// <param name="Messages"></param>
     /// <returns></returns>
     public static async Task<(string ResponseContent, int StatusCode)> SendPeerToPeerAsync(string APILink, string APIKey, List<List<string>> Recipients, string FromNumber, string[] Messages)
@@ -172,13 +172,48 @@ public class SMS_System
             return ("", -1); // Return empty content and error status code
         }
     }
-    //public class Recipient
-    //{
-    //    /// <summary>
-    //    ///  دریافت شماره مخاطب به صورت آرایه که به صورت ناهمزمان بهشون پیام ارسال بشه
-    //    /// </summary>
-    //    public string[] PhoneNumbers { get; set; }
-    //}
+
+
+    public static async Task<string> SendPeerToPeerByFileAsync(string APILink, string APIKey, string FromNumber, IFormFile File)
+    {
+        try
+        {
+            if (File == null || File.Length == 0)
+            {
+                throw new ArgumentException("File parameter cannot be null or empty.");
+            }
+
+            using (var client = new HttpClient())
+            {
+                // Create the HttpContent for the form to be posted.
+                var requestContent = new MultipartFormDataContent();
+                requestContent.Add(new StringContent(FromNumber), "sender");
+                requestContent.Add(new StreamContent(File.OpenReadStream()), "file", File.FileName);
+                requestContent.Add(new StringContent("ارسال به فایل"), "description[summary]");
+                requestContent.Add(new StringContent("1"), "description[count_recipient]");
+
+                // Set additional headers.
+                
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("apikey", APIKey);
+
+                // Send the POST request.
+                HttpResponseMessage response = await client.PostAsync(APILink ?? "https://api2.ippanel.com/api/v1/sms/send/panel/peer-to-peer-by-file", requestContent);
+
+                // Get the response content.
+                HttpContent responseContent = response.Content;
+
+                // Read the response.
+                string result = await responseContent.ReadAsStringAsync();
+                return result;
+            }
+        }
+        catch (WebException ex)
+        {
+            Console.WriteLine("Error sending SMS: " + ex.Message);
+            return (ex.Message); // Return empty content and error status code}
+        }
+    }
     /// <summary>
     /// نمایش هزینه پانل
     /// </summary>

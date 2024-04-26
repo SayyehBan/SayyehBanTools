@@ -314,12 +314,12 @@
         </member>
         <member name="M:SayyehBanTools.Sender.SMS_System.SendPeerToPeerAsync(System.String,System.String,System.Collections.Generic.List{System.Collections.Generic.List{System.String}},System.String,System.String[])">
             <summary>
-            این کد یک تابع C# به نام SendPeerToPeerAsync است که به صورت ناهمزمان برای ارسال پیامک‌های چند گیرنده به یک API با روش POST عمل می‌کند.
+            این کد یک تابع C# به نام SendPeerToPeerAsync است که به صورت همزمان برای ارسال پیامک‌های چند گیرنده به یک API با روش POST عمل می‌کند.
             </summary>
             <param name="APILink"></param>
             <param name="APIKey"></param>
             <param name="Recipients"></param>
-            <param name="Sender"></param>
+            <param name="FromNumber"></param>
             <param name="Messages"></param>
             <returns></returns>
         </member>
