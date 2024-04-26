@@ -172,8 +172,15 @@ public class SMS_System
             return ("", -1); // Return empty content and error status code
         }
     }
-
-
+    /// <summary>
+    /// ارسال پیامک به صورت Peer To Peer توسط فایل
+    /// </summary>
+    /// <param name="APILink"></param>
+    /// <param name="APIKey"></param>
+    /// <param name="FromNumber"></param>
+    /// <param name="File"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public static async Task<string> SendPeerToPeerByFileAsync(string APILink, string APIKey, string FromNumber, IFormFile File)
     {
         try
@@ -193,7 +200,7 @@ public class SMS_System
                 requestContent.Add(new StringContent("1"), "description[count_recipient]");
 
                 // Set additional headers.
-                
+
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 client.DefaultRequestHeaders.Add("apikey", APIKey);
 
