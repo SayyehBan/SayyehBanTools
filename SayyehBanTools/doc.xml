@@ -323,6 +323,17 @@
             <param name="Messages"></param>
             <returns></returns>
         </member>
+        <member name="M:SayyehBanTools.Sender.SMS_System.SendPeerToPeerByFileAsync(System.String,System.String,System.String,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            ارسال پیامک به صورت Peer To Peer توسط فایل
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="FromNumber"></param>
+            <param name="File"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="M:SayyehBanTools.Sender.SMS_System.GetCreditAsync(System.String,System.String)">
             <summary>
             نمایش هزینه پانل

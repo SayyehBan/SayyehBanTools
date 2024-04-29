@@ -14,19 +14,26 @@ public class RabbitMQMessageBus : ISendMessages
     {
         _rabbitMqConnection = rabbitMqConnection;
     }
-    public void SendMessage(BaseMessage message, string QueueName)
+    public void SendMessage(BaseMessage message, string exchange, string QueueName)
     {
         if (_rabbitMqConnection.CheckRabbitMQConnection())
         {
             using (var channel = _rabbitMqConnection.Connection.CreateModel())
             {
-                channel.QueueDeclare(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+                if (QueueName != null)
+                {
+                    channel.QueueDeclare(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+                }
+                if (exchange != null)
+                {
+                    channel.ExchangeDeclare(exchange, ExchangeType.Fanout, true, false, null);
+                }
 
                 var json = JsonConvert.SerializeObject(message);
                 var body = Encoding.UTF8.GetBytes(json);
                 var Properties = channel.CreateBasicProperties();
                 Properties.Persistent = true;
-                channel.BasicPublish(exchange: "", routingKey: QueueName, basicProperties: Properties, body: body);
+                channel.BasicPublish(exchange: exchange == null ? "" : exchange, routingKey: QueueName == null ? "" : QueueName, basicProperties: Properties, body: body);
             }
         }
     }

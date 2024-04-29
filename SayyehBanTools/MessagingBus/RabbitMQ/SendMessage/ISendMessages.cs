@@ -4,5 +4,5 @@ namespace SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
 
 public interface ISendMessages
 {
-    void SendMessage(BaseMessage message, string QueueName);
+    void SendMessage(BaseMessage message,string? exchange, string? QueueName);
 }
