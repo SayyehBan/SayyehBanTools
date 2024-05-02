@@ -37,6 +37,11 @@ public class Calculator
     /// <returns></returns>
     public static double Subtract(params double[] numbers)
     {
+        if (numbers.Length == 0)
+        {
+            throw new ArgumentException("Subtract requires at least two numbers.");
+        }
+
         double result = numbers[0];
         for (int i = 1; i < numbers.Length; i++)
         {
@@ -44,6 +49,7 @@ public class Calculator
         }
         return result;
     }
+
     /// <summary>
     /// انجام عملیات تقسیم
     /// </summary>
