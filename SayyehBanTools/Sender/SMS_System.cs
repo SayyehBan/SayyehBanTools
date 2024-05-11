@@ -16,7 +16,7 @@ public class SMS_System
     /// <param name="from"></param>
     /// <param name="to"></param>
     /// <returns></returns>
-    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendPatternAsync(string APILink, string APIKey, Dictionary<string, object> data, string patternCode, string from, string to)
+    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendPatternAsync(string APILink, string APIKey, Dictionary<string, object> data, string patternCode, string from, string to, DateTime DateTimeSender)
     {
         // Create JSON payload
         string jsonPayload = JsonConvert.SerializeObject(new
@@ -24,7 +24,8 @@ public class SMS_System
             code = patternCode,
             sender = from,
             recipient = to,
-            variable = data
+            variable = data,
+            time = DateTimeSender,
         });
 
         try
