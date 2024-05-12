@@ -288,7 +288,7 @@
             نحوه بررسی کد سایه بان
                if (!IsValidCode(textBox2.Text))
         </member>
-        <member name="M:SayyehBanTools.Sender.SMS_System.SendPatternAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.String,System.String,System.DateTime)">
+        <member name="M:SayyehBanTools.Sender.SMS_System.SendPatternAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.String,System.String,System.Nullable{System.DateTime})">
             <summary>
             ارسال به صورت پترن
             </summary>
@@ -300,7 +300,7 @@
             <param name="to"></param>
             <returns></returns>
         </member>
-        <member name="M:SayyehBanTools.Sender.SMS_System.SendNormalSingleAsync(System.String,System.String,System.String,System.String[],System.String,System.DateTime)">
+        <member name="M:SayyehBanTools.Sender.SMS_System.SendNormalSingleAsync(System.String,System.String,System.String,System.String[],System.String,System.Nullable{System.DateTime})">
             <summary>
             ارسال به صورت معمولی
             </summary>

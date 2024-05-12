@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System.Globalization;
 using System.Net;
 
 namespace SayyehBanTools.Sender;
@@ -16,16 +17,17 @@ public class SMS_System
     /// <param name="from"></param>
     /// <param name="to"></param>
     /// <returns></returns>
-    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendPatternAsync(string APILink, string APIKey, Dictionary<string, object> data, string patternCode, string from, string to, DateTime DateTimeSender)
+    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendPatternAsync(string APILink, string APIKey, Dictionary<string, object> data, string patternCode, string from, string to, DateTime? DateTimeSender)
     {
+        string formattedDateTime = GetDateTimeUTCWithOffset(DateTimeSender, TimeSpan.FromSeconds(30));
         // Create JSON payload
         string jsonPayload = JsonConvert.SerializeObject(new
         {
             code = patternCode,
             sender = from,
+            time = formattedDateTime,
             recipient = to,
             variable = data,
-            time = DateTimeSender,
         });
 
         try
@@ -68,14 +70,15 @@ public class SMS_System
     /// <param name="Message"></param>
     /// <param name="DateTimeSender"></param>
     /// <returns></returns>
-    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendNormalSingleAsync(string APILink, string APIKey, string from, string[] to, string Message, DateTime DateTimeSender)
+    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendNormalSingleAsync(string APILink, string APIKey, string from, string[] to, string Message, DateTime? DateTimeSender)
     {
+        string formattedDateTime = GetDateTimeUTCWithOffset(DateTimeSender, TimeSpan.FromSeconds(30));
         // ایجاد JSON payload
         string jsonPayload = JsonConvert.SerializeObject(new
         {
             sender = from,
             recipient = to,
-            time = DateTimeSender,
+            time = formattedDateTime,
             message = Message,
         });
 
@@ -109,6 +112,14 @@ public class SMS_System
             return (null, ex.Message); // بازگرداندن پاسخ و متن خطا
         }
     }
+
+    private static string GetDateTimeUTCWithOffset(DateTime? DateTimeSender, TimeSpan offset)
+    {
+        DateTime dateTime = DateTimeSender ?? DateTime.UtcNow + offset;
+        var formattedDateTime = dateTime.ToString("yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
+        return formattedDateTime;
+    }
+
     /// <summary>
     /// این کد یک تابع C# به نام SendPeerToPeerAsync است که به صورت همزمان برای ارسال پیامک‌های چند گیرنده به یک API با روش POST عمل می‌کند.
     /// </summary>
