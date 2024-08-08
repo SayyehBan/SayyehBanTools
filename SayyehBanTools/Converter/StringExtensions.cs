@@ -229,6 +229,15 @@ public static class StringExtensions
         return source.Replace("-", " ");
     }
     /// <summary>
+    ///خالی تبدیل فضایخط‌تیره  به  (Slug) در حذف رشته.
+    /// </summary>
+    /// <param name="source">رشته ورودی.</param>
+    /// <returns> رشته با فضاهای خط‌تیره جایگزین شده توسط خالی.</returns>
+    public static string RemoveDirectWWWROOT(this string source)
+    {
+        return source.Replace("wwwroot/", "");
+    }
+    /// <summary>
     /// پیدا کردن 
     /// IP ::1
     /// و جایگزاری 
