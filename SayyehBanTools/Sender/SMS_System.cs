@@ -112,6 +112,47 @@ public class SMS_System
             return (null, ex.Message); // بازگرداندن پاسخ و متن خطا
         }
     }
+    public static async Task<string> SendNormalFileAsync(string APILink, string APIKey, string FromNumber, IFormFile To,string Message)
+    {
+        try
+        {
+            if (To == null || To.Length == 0)
+            {
+                throw new ArgumentException("File parameter cannot be null or empty.");
+            }
+
+            using (var client = new HttpClient())
+            {
+                // Create the HttpContent for the form to be posted.
+                var requestContent = new MultipartFormDataContent();
+                requestContent.Add(new StringContent(FromNumber), "sender");
+                requestContent.Add(new StringContent(Message), "message");
+                requestContent.Add(new StreamContent(To.OpenReadStream()), "file", To.FileName);
+                requestContent.Add(new StringContent("ارسال به فایل"), "description[summary]");
+                requestContent.Add(new StringContent("1"), "description[count_recipient]");
+
+                // Set additional headers.
+
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("apikey", APIKey);
+
+                // Send the POST request.
+                HttpResponseMessage response = await client.PostAsync(APILink ?? "https://api2.ippanel.com/api/v1/sms/send/panel/file", requestContent);
+
+                // Get the response content.
+                HttpContent responseContent = response.Content;
+
+                // Read the response.
+                string result = await responseContent.ReadAsStringAsync();
+                return result;
+            }
+        }
+        catch (WebException ex)
+        {
+            Console.WriteLine("Error sending SMS: " + ex.Message);
+            return (ex.Message); // Return empty content and error status code}
+        }
+    }
 
     private static string GetDateTimeUTCWithOffset(DateTime? DateTimeSender, TimeSpan offset)
     {
