@@ -57,8 +57,13 @@ public class NationalCode
         }
         return ss;
     }
-    //نحوه استفاده برای تولید کد
-    //textBox3.Text = Generate();
+    /// <summary>
+    /// نحوه استفاده برای تولید کد
+    ///textBox3.Text = Generate();
+    /// </summary>
+    /// <param name="nationalCode"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public static Boolean IsValidNationalCode(String nationalCode)
     {
         //در صورتی که کد ملی وارد شده تهی باشد
@@ -99,8 +104,8 @@ public class NationalCode
 
         return (((c < 2) && (a == c)) || ((c >= 2) && ((11 - c) == a)));
     }
-    ///نحوه بررسی صحت درست بودن و اشتباه بودن
-    /// if (!IsValidNationalCode(textBox4.Text))
+    //نحوه بررسی صحت درست بودن و اشتباه بودن
+    // if (!IsValidNationalCode(textBox4.Text))
     //{
     //    MessageBox.Show("کد ملی شما صحیح نیست");
     //}

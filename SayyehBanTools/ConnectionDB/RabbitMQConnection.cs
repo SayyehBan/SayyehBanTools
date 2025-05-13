@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 /// <summary>
 /// این کلاس برای سرویس های رابیت مق استفاده میشود
 /// </summary>
-public class RabbitMQConnection
+public partial class RabbitMQConnection
 {
     /// <summary>
     /// آدرس پیش فرض RabbitMQ

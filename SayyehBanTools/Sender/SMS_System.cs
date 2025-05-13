@@ -11,14 +11,7 @@ public class SMS_System
     /// <summary>
     /// ارسال به صورت پترن
     /// </summary>
-    /// <param name="APILink"></param>
-    /// <param name="APIKey"></param>
-    /// <param name="data"></param>
-    /// <param name="patternCode"></param>
-    /// <param name="from"></param>
-    /// <param name="to"></param>
-    /// <returns></returns>
-    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendPatternAsync(string? APILink, string? APIKey, Dictionary<string, object> data, string? patternCode, string? from, string? to, DateTime? DateTimeSender)
+    public static async Task<(HttpResponseMessage? Response, string ResponseContent)> SendPatternAsync(string? APILink, string? APIKey, Dictionary<string, object> data, string? patternCode, string? from, string? to, DateTime? DateTimeSender)
     {
         string formattedDateTime = GetDateTimeUTCWithOffset(DateTimeSender, TimeSpan.FromSeconds(30));
         // Create JSON payload
@@ -33,32 +26,27 @@ public class SMS_System
 
         try
         {
-            // Construct HTTP POST request
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(APILink ?? "https://api2.ippanel.com/api/v1/sms/pattern/normal/send");
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.Headers["apikey"] = APIKey;
-
-            // Send JSON payload asynchronously
-            using (var writer = new StreamWriter(await request.GetRequestStreamAsync()))
+            using (var client = new HttpClient())
             {
-                await writer.WriteAsync(jsonPayload);
-                await writer.FlushAsync(); // Ensure data is flushed before closing the stream
-            }
+                // Set up the request
+                var request = new HttpRequestMessage(HttpMethod.Post, APILink ?? "https://api2.ippanel.com/api/v1/sms/pattern/normal/send")
+                {
+                    Content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json")
+                };
+                request.Headers.Add("apikey", APIKey);
 
-            // Get response asynchronously
-            HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream))
-            {
-                string responseContent = await reader.ReadToEndAsync();
+                // Send the request
+                HttpResponseMessage response = await client.SendAsync(request);
+
+                // Read the response content
+                string responseContent = await response.Content.ReadAsStringAsync();
                 return (response, responseContent);
             }
         }
-        catch (WebException ex)
+        catch (HttpRequestException ex)
         {
             Console.WriteLine("Error sending SMS: " + ex.Message);
-            return (null, ex.Message); // Return null response and error message
+            return (new HttpResponseMessage(HttpStatusCode.InternalServerError), ex.Message); // Return a default HttpResponseMessage with error message
         }
     }
     /// <summary>
@@ -71,10 +59,10 @@ public class SMS_System
     /// <param name="Message"></param>
     /// <param name="DateTimeSender"></param>
     /// <returns></returns>
-    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendNormalSingleAsync(string? APILink, string? APIKey, string? from, string[] to, string? Message, DateTime? DateTimeSender)
+    public static async Task<(HttpResponseMessage Response, string ResponseContent)> SendNormalSingleAsync(string? APILink, string? APIKey, string? from, string[] to, string? Message, DateTime? DateTimeSender)
     {
         string formattedDateTime = GetDateTimeUTCWithOffset(DateTimeSender, TimeSpan.FromSeconds(30));
-        // ایجاد JSON payload
+        // Create JSON payload
         string jsonPayload = JsonConvert.SerializeObject(new
         {
             sender = from,
@@ -85,34 +73,39 @@ public class SMS_System
 
         try
         {
-            // ساخت درخواست HTTP POST
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(APILink ?? "https://api2.ippanel.com/api/v1/sms/send/webservice/single");
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.Headers["apikey"] = APIKey;
-
-            // ارسال JSON payload به صورت ناهمزمان
-            using (var writer = new StreamWriter(await request.GetRequestStreamAsync()))
+            using (var client = new HttpClient())
             {
-                await writer.WriteAsync(jsonPayload);
-                await writer.FlushAsync(); // اطمینان حاصل کنید که داده قبل از بستن جریان فرستاده شود
-            }
+                // Set up the request
+                var request = new HttpRequestMessage(HttpMethod.Post, APILink ?? "https://api2.ippanel.com/api/v1/sms/send/webservice/single")
+                {
+                    Content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json")
+                };
+                request.Headers.Add("apikey", APIKey);
 
-            // دریافت پاسخ به صورت ناهمزمان
-            HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream))
-            {
-                string responseContent = await reader.ReadToEndAsync();
+                // Send the request
+                HttpResponseMessage response = await client.SendAsync(request);
+
+                // Read the response content
+                string responseContent = await response.Content.ReadAsStringAsync();
                 return (response, responseContent);
             }
         }
-        catch (WebException ex)
+        catch (HttpRequestException ex)
         {
             Console.WriteLine("Error sending SMS: " + ex.Message);
-            return (null, ex.Message); // بازگرداندن پاسخ و متن خطا
+            return (new HttpResponseMessage(HttpStatusCode.InternalServerError), ex.Message); // Return a default HttpResponseMessage with error message
         }
     }
+    /// <summary>
+    /// ارسال به صورت فایل
+    /// </summary>
+    /// <param name="APILink"></param>
+    /// <param name="APIKey"></param>
+    /// <param name="FromNumber"></param>
+    /// <param name="To"></param>
+    /// <param name="Message"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public static async Task<string> SendNormalFileAsync(string? APILink, string? APIKey, string? FromNumber, IFormFile To,string? Message)
     {
         try
@@ -126,8 +119,9 @@ public class SMS_System
             {
                 // Create the HttpContent for the form to be posted.
                 var requestContent = new MultipartFormDataContent();
-                requestContent.Add(new StringContent(FromNumber), "sender");
-                requestContent.Add(new StringContent(Message), "message");
+                // Updated line to handle potential null reference for 'FromNumber'
+                requestContent.Add(new StringContent(FromNumber ?? string.Empty), "sender");
+                requestContent.Add(new StringContent(Message?? string.Empty), "message");
                 requestContent.Add(new StreamContent(To.OpenReadStream()), "file", To.FileName);
                 requestContent.Add(new StringContent("ارسال به فایل"), "description[summary]");
                 requestContent.Add(new StringContent("1"), "description[count_recipient]");
@@ -180,7 +174,7 @@ public class SMS_System
     {
         try
         {
-            // ایجاد JSON payload
+            // Create JSON payload
             var jsonPayload = new Dictionary<string, object>()
             {
                 ["recipient"] = Recipients,
@@ -191,41 +185,25 @@ public class SMS_System
 
             string jsonString = JsonConvert.SerializeObject(jsonPayload);
 
-            // ایجاد درخواست HTTP POST
-            var request = (HttpWebRequest)WebRequest.Create(APILink ?? "https://api2.ippanel.com/api/v1/sms/send/webservice/peer-to-peer");
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.Headers["Accept"] = "application/json"; // سربرگ پذیرش را اضافه کنید (اختیاری)
-            request.Headers["apikey"] = APIKey;
-
-            // ارسال JSON payload به صورت ناهمزمان
-            using (var streamWriter = new StreamWriter(await request.GetRequestStreamAsync()))
+            using (var client = new HttpClient())
             {
-                await streamWriter.WriteAsync(jsonString);
-                await streamWriter.FlushAsync();
-            }
+                // Set up the request
+                var request = new HttpRequestMessage(HttpMethod.Post, APILink ?? "https://api2.ippanel.com/api/v1/sms/send/webservice/peer-to-peer")
+                {
+                    Content = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json")
+                };
+                request.Headers.Add("Accept", "application/json");
+                request.Headers.Add("apikey", APIKey);
 
-            // دریافت پاسخ
-            using (var response = (HttpWebResponse)await request.GetResponseAsync())
-            {
-                // بررسی کد وضعیت
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    // خواندن محتوای پاسخ
-                    using (var stream = response.GetResponseStream())
-                    using (var reader = new StreamReader(stream))
-                    {
-                        string responseContent = await reader.ReadToEndAsync();
-                        return (responseContent, (int)response.StatusCode);
-                    }
-                }
-                else
-                {
-                    throw new WebException($"Error sending SMS: {response.StatusCode}");
-                }
+                // Send the request
+                HttpResponseMessage response = await client.SendAsync(request);
+
+                // Read the response content
+                string responseContent = await response.Content.ReadAsStringAsync();
+                return (responseContent, (int)response.StatusCode);
             }
         }
-        catch (WebException ex)
+        catch (HttpRequestException ex)
         {
             Console.WriteLine("Error sending SMS: " + ex.Message);
             return ("", -1); // Return empty content and error status code
@@ -290,34 +268,22 @@ public class SMS_System
     {
         try
         {
-            // ایجاد درخواست HTTP GET
-            var request = (HttpWebRequest)WebRequest.Create(APILink ?? $"https://api2.ippanel.com/api/v1/sms/accounting/credit/show");
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Headers["Accept"] = "application/json"; // سربرگ پذیرش را اضافه کنید (اختیاری)
-            request.Headers["apikey"] = APIKey;
-
-            // دریافت پاسخ
-            using (var response = (HttpWebResponse)await request.GetResponseAsync())
+            using (var client = new HttpClient())
             {
-                // بررسی کد وضعیت
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    // خواندن محتوای پاسخ
-                    using (var stream = response.GetResponseStream())
-                    using (var reader = new StreamReader(stream))
-                    {
-                        string responseContent = await reader.ReadToEndAsync();
-                        return (responseContent, (int)response.StatusCode);
-                    }
-                }
-                else
-                {
-                    throw new WebException($"Error getting credit: {response.StatusCode}");
-                }
+                // Set up the request
+                var request = new HttpRequestMessage(HttpMethod.Get, APILink ?? "https://api2.ippanel.com/api/v1/sms/accounting/credit/show");
+                request.Headers.Add("Accept", "application/json");
+                request.Headers.Add("apikey", APIKey);
+
+                // Send the request
+                HttpResponseMessage response = await client.SendAsync(request);
+
+                // Read the response content
+                string responseContent = await response.Content.ReadAsStringAsync();
+                return (responseContent, (int)response.StatusCode);
             }
         }
-        catch (WebException ex)
+        catch (HttpRequestException ex)
         {
             Console.WriteLine("Error getting credit: " + ex.Message);
             return ("", -1); // Return empty content and error status code
@@ -335,36 +301,27 @@ public class SMS_System
     {
         try
         {
-            // ایجاد درخواست HTTP GET
-            var request = (HttpWebRequest)WebRequest.Create(APILink ?? $"https://api2.ippanel.com/api/v1/sms/message/all?page={page}&per_page={per_page}");
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Headers["Accept"] = "application/json"; // سربرگ پذیرش را اضافه کنید (اختیاری)
-            request.Headers["apikey"] = APIKey;
-
-            // دریافت پاسخ
-            using (var response = (HttpWebResponse)await request.GetResponseAsync())
+            using (var client = new HttpClient())
             {
-                // بررسی کد وضعیت
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    // خواندن محتوای پاسخ
-                    using (var stream = response.GetResponseStream())
-                    using (var reader = new StreamReader(stream))
-                    {
-                        string responseContent = await reader.ReadToEndAsync();
-                        return (responseContent, (int)response.StatusCode);
-                    }
-                }
-                else
-                {
-                    throw new WebException($"Error getting credit: {response.StatusCode}");
-                }
+                // Construct the URL with query parameters
+                string url = APILink ?? $"https://api2.ippanel.com/api/v1/sms/message/all?page={page}&per_page={per_page}";
+
+                // Set up the request
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
+                request.Headers.Add("Accept", "application/json");
+                request.Headers.Add("apikey", APIKey);
+
+                // Send the request
+                HttpResponseMessage response = await client.SendAsync(request);
+
+                // Read the response content
+                string responseContent = await response.Content.ReadAsStringAsync();
+                return (responseContent, (int)response.StatusCode);
             }
         }
-        catch (WebException ex)
+        catch (HttpRequestException ex)
         {
-            Console.WriteLine("Error getting credit: " + ex.Message);
+            Console.WriteLine("Error getting send list: " + ex.Message);
             return ("", -1); // Return empty content and error status code
         }
     }

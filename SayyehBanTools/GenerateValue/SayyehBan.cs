@@ -125,6 +125,6 @@ public class SayyehBan
 
         return ss;
     }
-    ///نحوه استفاده از کد تولید
-    /// textBox1.Text = GenerateCode();
+    //نحوه استفاده از کد تولید
+    // textBox1.Text = GenerateCode();
 }

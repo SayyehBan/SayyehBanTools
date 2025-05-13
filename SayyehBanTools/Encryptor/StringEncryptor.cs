@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-
+/// <summary>
+/// کلاس مدیریت رمزگذاری
+/// </summary>
 public static class StringEncryptor
 {
     private static readonly int KeySize = 256; // اندازه کلید 256 بیت
@@ -138,7 +137,7 @@ public static class StringEncryptor
 }
 /*
  طریقه استفاده از دستور
-string encryptedText = StringEncryptor.Encrypt(plainText, initVector, passPhrase);
-string decryptedText = StringEncryptor.Decrypt(encryptedText, initVector, passPhrase);
+string encryptedText =await StringEncryptor.EncryptAsync(plainText, initVector, passPhrase);
+string decryptedText =await StringEncryptor.DecryptAsync(encryptedText, initVector, passPhrase);
 
  */

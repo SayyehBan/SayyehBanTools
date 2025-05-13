@@ -1,27 +1,27 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-/// <summary>
-/// این کلاس برای مدیریت کلمات پسورد های ضعیف استفاده میشود
-/// </summary>
+/// <summary>  
+/// این کلاس برای مدیریت کلمات پسورد های ضعیف استفاده میشود  
+/// </summary>  
 public class WorstPasswords
 {
-    /// <summary>
-    /// این متد برای محاسبه هش استفاده میشود
-    /// </summary>
+    /// <summary>  
+    /// این متد برای محاسبه هش استفاده میشود  
+    /// </summary>  
     public List<string> CommonPassword { get; set; }
-    /// <summary>
-    /// این متد برای محاسبه هش استفاده میشود
-    /// </summary>
+    /// <summary>  
+    /// این متد برای محاسبه هش استفاده میشود  
+    /// </summary>  
     public WorstPasswords()
     {
         CommonPassword = new List<string>();
     }
-    /// <summary>
-    /// این متد برای محاسبه هش استفاده میشود
-    /// </summary>
-    /// <param name="directFile"></param>
-    /// <returns></returns>
+    /// <summary>  
+    /// این متد برای محاسبه هش استفاده میشود  
+    /// </summary>  
+    /// <param name="directFile"></param>  
+    /// <returns></returns>  
     public async Task LoadCommonPasswords(string directFile)
     {
         if (CommonPassword.Count == 0)
@@ -30,18 +30,21 @@ public class WorstPasswords
             {
                 while (!reader.EndOfStream)
                 {
-                    string line = await reader.ReadLineAsync();
-                    string hashedLine = ComputeSha256Hash(line);
-                    CommonPassword.Add(hashedLine);
+                    string? line = await reader.ReadLineAsync();
+                    if (line != null)
+                    {
+                        string hashedLine = ComputeSha256Hash(line);
+                        CommonPassword.Add(hashedLine);
+                    }
                 }
             }
         }
     }
-    /// <summary>
-    /// این متد برای محاسبه هش استفاده میشود
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <summary>  
+    /// این متد برای محاسبه هش استفاده میشود  
+    /// </summary>  
+    /// <param name="input"></param>  
+    /// <returns></returns>  
     public string ComputeSha256Hash(string input)
     {
         using (var sha256 = SHA256.Create())

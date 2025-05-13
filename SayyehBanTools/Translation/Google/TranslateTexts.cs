@@ -1,17 +1,24 @@
 ﻿using Newtonsoft.Json.Linq;
-using SayyehBanTools.Translation.Google.Model;
-
-namespace SayyehBanTools.Translation.Google;
-
+/// <summary>
+/// این کلاس برای ترجمه متن به زبان های مختلف استفاده میشود.
+/// </summary>
 public class TranslateTexts
 {
     private readonly HttpClient _httpClient;
-
+    /// <summary>
+    /// این متد برای ترجمه متن به زبان های مختلف استفاده میشود.
+    /// </summary>
+    /// <param name="httpClient"></param>
     public TranslateTexts(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
-
+    /// <summary>
+    /// این متد برای ترجمه متن به زبان های مختلف استفاده میشود.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public async Task<TranslationResponse> TranslateTextAsync(TranslationRequest request)
     {
         string url = $"https://translate.google.com/translate_a/single?client=gtx&sl={request.InputLanguage}&tl={request.OutputLanguage}&dt=t&q={request.OriginalText}";
@@ -28,8 +35,11 @@ public class TranslateTexts
 
                 foreach (JArray part in translationParts)
                 {
-                    string translatedText = (string)part[0];
-                    translatedParts.Add(translatedText);
+                    string? translatedText = part[0]?.ToString(); // Safely handle potential null values
+                    if (translatedText != null)
+                    {
+                        translatedParts.Add(translatedText);
+                    }
                 }
 
                 return new TranslationResponse { Translations = translatedParts };

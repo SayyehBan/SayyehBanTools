@@ -29,7 +29,11 @@ public class ManageFiles
         // ترکیب مسیر کامل فایل
         var fullPath = Path.Combine(basePath, file.FileName);
         // ایجاد دایرکتوری مقصد در صورت عدم وجود
-        Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+        var directoryPath = Path.GetDirectoryName(fullPath);
+        if (!string.IsNullOrEmpty(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
 
         // ایجاد نام فایل جدید با GUID
         var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
@@ -43,8 +47,7 @@ public class ManageFiles
         var newdirect = StringExtensions.RemoveDirectWWWROOT(newFullPath);
         return newdirect;
     }
-}
-/*
+}/*
  طریقه استفاده از دستور
 
             var basePath = "wwwroot/Uploads/Avatars/";

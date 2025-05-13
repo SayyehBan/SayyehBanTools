@@ -1,48 +1,61 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
-using System.Text;
+using SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
+
+
 /// <summary>
-/// این کلاس برای ارسال پیام های رابیت مق استفاده میشود
+/// کلاس ارسال پیام به RabbitMQ با تنظیمات رمزنگاری‌شده
 /// </summary>
 public class RabbitMQMessageBus : ISendMessages
 {
-
     private readonly RabbitMQConnection _rabbitMqConnection;
+
     /// <summary>
-    /// این متد برای ارسال پیام های رابیت مق استفاده میشود
+    /// سازنده برای تزریق وابستگی
     /// </summary>
-    /// <param name="rabbitMqConnection"></param>
+    /// <param name="rabbitMqConnection">اتصال به RabbitMQ</param>
     public RabbitMQMessageBus(RabbitMQConnection rabbitMqConnection)
     {
-        _rabbitMqConnection = rabbitMqConnection;
+        _rabbitMqConnection = rabbitMqConnection ?? throw new ArgumentNullException(nameof(rabbitMqConnection));
     }
-    /// <summary>
-    /// این متد برای ارسال پیام های رابیت مق استفاده میشود
-    /// </summary>
-    /// <param name="message"></param>
-    /// <param name="exchange"></param>
-    /// <param name="QueueName"></param>
-    public void SendMessage(BaseMessage message, string? exchange, string? QueueName)
-    {
-        if (_rabbitMqConnection.CheckRabbitMQConnection())
-        {
-            using (var channel = _rabbitMqConnection.Connection.CreateModel())
-            {
-                if (QueueName != null)
-                {
-                    channel.QueueDeclare(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-                }
-                if (exchange != null)
-                {
-                    channel.ExchangeDeclare(exchange, ExchangeType.Fanout, true, false, null);
-                }
 
-                var json = JsonConvert.SerializeObject(message);
-                var body = Encoding.UTF8.GetBytes(json);
-                var Properties = channel.CreateBasicProperties();
-                Properties.Persistent = true;
-                channel.BasicPublish(exchange: exchange == null ? "" : exchange, routingKey: QueueName == null ? "" : QueueName, basicProperties: Properties, body: body);
-            }
+    /// <summary>
+    /// ارسال پیام به RabbitMQ به‌صورت async
+    /// </summary>
+    /// <param name="message">پیام</param>
+    /// <param name="exchange">نام اکسچنج</param>
+    /// <param name="queueName">نام صف</param>
+    public async Task SendMessageAsync(BaseMessage message, string? exchange, string? queueName)
+    {
+        if (message == null)
+            throw new ArgumentNullException(nameof(message));
+
+        if (!await _rabbitMqConnection.CheckRabbitMQConnectionAsync())
+            throw new InvalidOperationException("Cannot connect to RabbitMQ.");
+
+        var channel = _rabbitMqConnection.Channel;
+        if (channel == null || channel.IsClosed)
+            throw new InvalidOperationException("RabbitMQ channel is not initialized or closed.");
+
+        if (queueName != null)
+        {
+            await channel.QueueDeclareAsync(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
         }
+        if (exchange != null)
+        {
+            await channel.ExchangeDeclareAsync(exchange, ExchangeType.Fanout, durable: true, autoDelete: false, arguments: null);
+        }
+
+        var json = JsonConvert.SerializeObject(message);
+        var body = Encoding.UTF8.GetBytes(json);
+        var properties = new BasicProperties { Persistent = true };
+
+        await channel.BasicPublishAsync(
+        exchange: exchange ?? "",
+        routingKey: queueName ?? "",
+        mandatory: false,
+        basicProperties: properties,
+        body: body); // تبدیل byte[] به ReadOnlyMemory<byte>
     }
 }

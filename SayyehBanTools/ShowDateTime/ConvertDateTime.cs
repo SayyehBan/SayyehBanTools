@@ -1,7 +1,9 @@
 ﻿using System.Globalization;
 using System.Text;
 namespace SayyehBanTools.ShowDateTime;
-
+/// <summary>
+/// این کلاس برای تبدیل تاریخ به فارسی استفاده میشود
+/// </summary>
 public class ConvertDateTime
 {    /// <summary>
      /// کد مربوط به تاریخ به صورت ماه و روز
@@ -108,15 +110,23 @@ public class ConvertDateTime
     /// </summary>
     /// <param name="ShDate"></param>
     /// <returns></returns>
-    public  static DateTime ShamsiToMiladi(string ShDate)
+    public static DateTime ShamsiToMiladi(string ShDate)
     {
         DateTime dt = default(DateTime);
         if (!string.IsNullOrEmpty(ShDate))
         {
-            string[] DatePara = null;
-            System.Globalization.PersianCalendar perCal = new System.Globalization.PersianCalendar();
-            DatePara = ShDate.Split('/');
-            dt = perCal.ToDateTime(Convert.ToInt16(DatePara[0]), Convert.ToInt16(DatePara[1]), Convert.ToInt16(DatePara[2]), 20, 30, 15, 500, System.Globalization.PersianCalendar.PersianEra);
+            string[] DatePara = ShDate.Split('/');
+            if (DatePara.Length == 3) // Ensure the split resulted in exactly 3 parts
+            {
+                System.Globalization.PersianCalendar perCal = new System.Globalization.PersianCalendar();
+                dt = perCal.ToDateTime(
+                    Convert.ToInt16(DatePara[0]),
+                    Convert.ToInt16(DatePara[1]),
+                    Convert.ToInt16(DatePara[2]),
+                    20, 30, 15, 500,
+                    System.Globalization.PersianCalendar.PersianEra
+                );
+            }
         }
         return dt;
     }

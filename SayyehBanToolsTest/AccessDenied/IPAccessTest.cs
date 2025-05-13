@@ -1,6 +1,4 @@
-﻿using SayyehBanTools.AccessDenied;
-
-namespace SayyehBanToolsTest.AccessDenied;
+﻿namespace SayyehBanToolsTest.AccessDenied;
 
 public class IPAccessTests
 {

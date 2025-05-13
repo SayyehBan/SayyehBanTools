@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SayyehBanTools.ConfigureService;
-using SayyehBanTools.MessagingBus.RabbitMQ.Connection;
 using SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
 
 namespace SayyehBanToolsTest.ConfigureService;
@@ -16,12 +14,11 @@ public class ConfigureServicesRabbitMQTest
             var services = new ServiceCollection();
 
             // Act
-            new ConfigureServicesRabbitMQ().ConfigureService(services); // Corrected method name
+            new ConfigureServicesRabbitMQ().ConfigureService(services);
 
             // Assert
-            Assert.True(services.Any(service => service.ServiceType == typeof(RabbitMQConnection)));
-            Assert.True(services.Any(service => service.ServiceType == typeof(ISendMessages)));
+            Assert.Contains(services, service => service.ServiceType == typeof(RabbitMQConnection));
+            Assert.Contains(services, service => service.ServiceType == typeof(ISendMessages));
         }
     }
-
 }

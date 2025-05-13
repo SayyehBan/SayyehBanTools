@@ -1,6 +1,4 @@
-﻿using SayyehBanTools.Calc;
-
-namespace SayyehBanToolsTest.Calc;
+﻿namespace SayyehBanToolsTest.Calc;
 
 public class CalculatorTest
 {

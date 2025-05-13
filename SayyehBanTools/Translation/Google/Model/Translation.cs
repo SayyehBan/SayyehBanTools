@@ -1,15 +1,30 @@
-﻿namespace SayyehBanTools.Translation.Google.Model;
-
-// مدل برای درخواست ترجمه
+﻿
+/// <summary>
+/// مدل برای درخواست ترجمه
+/// </summary>
 public class TranslationRequest
 {
-    public string OriginalText { get; set; }
-    public string InputLanguage { get; set; }
-    public string OutputLanguage { get; set; }
+    /// <summary>
+    /// متن اصلی
+    /// </summary>
+    public string? OriginalText { get; set; }
+    /// <summary>
+    /// زبان ورودی
+    /// </summary>
+    public string? InputLanguage { get; set; }
+    /// <summary>
+    /// زبان خروجی
+    /// </summary>
+    public string? OutputLanguage { get; set; }
 }
 
-// مدل برای پاسخ ترجمه
+/// <summary>
+/// مدل برای پاسخ ترجمه
+/// </summary>
 public class TranslationResponse
 {
-    public List<string> Translations { get; set; }
+    /// <summary>
+    /// ترجمه
+    /// </summary>
+    public List<string> Translations { get; set; } = new List<string>();
 }

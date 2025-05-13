@@ -1,7 +1,15 @@
-﻿namespace SayyehBanTools.Utilities;
-
+﻿/// <summary>
+/// صفحه بندی
+/// </summary>
 public class Pager
 {
+    /// <summary>
+    /// این کلاس برای صفحه بندی استفاده میشود
+    /// </summary>
+    /// <param name="totalItems"></param>
+    /// <param name="currentPage"></param>
+    /// <param name="pageSize"></param>
+    /// <param name="maxPages"></param>
     public Pager(long totalItems, int currentPage = 1, int pageSize = 10, int maxPages = 5)
     {
         // calculate total pages
@@ -59,7 +67,13 @@ public class Pager
         TotalPages = totalPages;
         Pages = pages;
     }
+    /// <summary>
+    /// صفحه هات
+    /// </summary>
     public IEnumerable<int> Pages { get; private set; }
+    /// <summary>
+    /// تعداد کل صفحه
+    /// </summary>
     public int TotalPages { get; private set; }
 }
 /*

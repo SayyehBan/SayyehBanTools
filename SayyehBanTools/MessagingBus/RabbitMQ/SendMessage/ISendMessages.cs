@@ -1,13 +1,17 @@
-﻿/// <summary>
-/// اینترفیس ارسال پیام به صورت سنکرون
-/// </summary>
-public interface ISendMessages
+﻿namespace SayyehBanTools.MessagingBus.RabbitMQ.SendMessage
 {
     /// <summary>
-    /// ارسال پیام
+    /// رابط برای ارسال پیام به RabbitMQ
     /// </summary>
-    /// <param name="message"></param>
-    /// <param name="exchange"></param>
-    /// <param name="QueueName"></param>
-    void SendMessage(BaseMessage message,string? exchange, string? QueueName);
+    public interface ISendMessages
+    {
+        /// <summary>
+        /// ارسال پیام به RabbitMQ به‌صورت async
+        /// </summary>
+        /// <param name="message">پیام</param>
+        /// <param name="exchange">نام اکسچنج</param>
+        /// <param name="queueName">نام صف</param>
+        /// <returns>Task</returns>
+        Task SendMessageAsync(BaseMessage message, string? exchange, string? queueName);
+    }
 }
