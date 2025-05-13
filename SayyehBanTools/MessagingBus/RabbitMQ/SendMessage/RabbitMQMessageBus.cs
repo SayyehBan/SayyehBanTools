@@ -1,20 +1,28 @@
 ﻿using Newtonsoft.Json;
 using RabbitMQ.Client;
-using SayyehBanTools.MessagingBus.RabbitMQ.Connection;
-using SayyehBanTools.MessagingBus.RabbitMQ.Model;
 using System.Text;
-
-namespace SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
-
+/// <summary>
+/// این کلاس برای ارسال پیام های رابیت مق استفاده میشود
+/// </summary>
 public class RabbitMQMessageBus : ISendMessages
 {
 
     private readonly RabbitMQConnection _rabbitMqConnection;
+    /// <summary>
+    /// این متد برای ارسال پیام های رابیت مق استفاده میشود
+    /// </summary>
+    /// <param name="rabbitMqConnection"></param>
     public RabbitMQMessageBus(RabbitMQConnection rabbitMqConnection)
     {
         _rabbitMqConnection = rabbitMqConnection;
     }
-    public void SendMessage(BaseMessage message, string exchange, string QueueName)
+    /// <summary>
+    /// این متد برای ارسال پیام های رابیت مق استفاده میشود
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="exchange"></param>
+    /// <param name="QueueName"></param>
+    public void SendMessage(BaseMessage message, string? exchange, string? QueueName)
     {
         if (_rabbitMqConnection.CheckRabbitMQConnection())
         {

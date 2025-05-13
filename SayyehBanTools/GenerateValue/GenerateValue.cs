@@ -1,7 +1,8 @@
 ﻿using System.Security.Cryptography;
 
-namespace SayyehBanTools.GenerateValue;
-
+/// <summary>
+/// این کلاس برای تولید مقادیر تصادفی استفاده میشود
+/// </summary>
 public class GenerateValue
 {
     /// <summary>

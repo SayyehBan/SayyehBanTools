@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
-using SayyehBanTools.Encryptor;
 using SayyehBanTools.MessagingBus.RabbitMQ.Model;
 
-namespace SayyehBanTools.MessagingBus.RabbitMQ.Connection;
-
+/// <summary>
+/// این کلاس برای اتصال به رابیت مق استفاده میشود
+/// </summary>
 public class RabbitMQConnectionNormal
 {
     private readonly RabbitMqConnectionSettingsNormal _rabbitMqConnectionSettingsNormal;
@@ -14,10 +14,17 @@ public class RabbitMQConnectionNormal
     private readonly int _port;
     public IConnection Connection { get; set; }
     public IModel Channel { get; set; }
+    /// <summary>
+    /// این متد برای اتصال به رابیت مق استفاده میشود
+    /// </summary>
     public RabbitMQConnectionNormal()
     {
 
     }
+    /// <summary>
+    /// // این متد برای اتصال به رابیت مق استفاده میشود
+    /// </summary>
+    /// <param name="rabbitMqConnectionSettingsNormal"></param>
     public RabbitMQConnectionNormal(IOptions<RabbitMqConnectionSettingsNormal> rabbitMqConnectionSettingsNormal)
     {
         _rabbitMqConnectionSettingsNormal = rabbitMqConnectionSettingsNormal.Value;
@@ -43,7 +50,10 @@ public class RabbitMQConnectionNormal
             Console.WriteLine($"can not create connection: {ex.Message}");
         }
     }
-
+    /// <summary>
+    /// این متد برای بررسی اتصال به رابیت مق استفاده میشود
+    /// </summary>
+    /// <returns></returns>
     public bool CheckRabbitMQConnection()
     {
         if (Connection != null)

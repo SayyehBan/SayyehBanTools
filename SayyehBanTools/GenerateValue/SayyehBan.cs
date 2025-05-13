@@ -1,9 +1,16 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace SayyehBanTools.GenerateValue;
-
+/// <summary>
+/// کلاس بررسی و تولید کد سایه بان
+/// </summary>
 public class SayyehBan
 {
+    /// <summary>
+    /// بررسی کد سایه بان
+    /// </summary>
+    /// <param name="nationalCode"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public static Boolean IsValidCode(String nationalCode)
     {
         //در صورتی که کد ملی وارد شده تهی باشد

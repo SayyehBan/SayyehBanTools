@@ -1,17 +1,27 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace SayyehBanTools.Password;
-
+/// <summary>
+/// این کلاس برای مدیریت کلمات پسورد های ضعیف استفاده میشود
+/// </summary>
 public class WorstPasswords
 {
-
+    /// <summary>
+    /// این متد برای محاسبه هش استفاده میشود
+    /// </summary>
     public List<string> CommonPassword { get; set; }
+    /// <summary>
+    /// این متد برای محاسبه هش استفاده میشود
+    /// </summary>
     public WorstPasswords()
     {
         CommonPassword = new List<string>();
     }
-
+    /// <summary>
+    /// این متد برای محاسبه هش استفاده میشود
+    /// </summary>
+    /// <param name="directFile"></param>
+    /// <returns></returns>
     public async Task LoadCommonPasswords(string directFile)
     {
         if (CommonPassword.Count == 0)
@@ -27,7 +37,11 @@ public class WorstPasswords
             }
         }
     }
-
+    /// <summary>
+    /// این متد برای محاسبه هش استفاده میشود
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public string ComputeSha256Hash(string input)
     {
         using (var sha256 = SHA256.Create())

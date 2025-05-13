@@ -1,5 +1,6 @@
-﻿namespace SayyehBanTools.Converter;
-
+﻿/// <summary>
+/// تبدیل عدد به رشته
+/// </summary>
 public class ConvertNumbertToString
 {  //        this.toolTip1.SetToolTip(this.textBox1, ConvertRaghamToHorof(Int64.Parse( textBox1.Text)));
    //this.label1.Text = ConvertRaghamToHorof(Int64.Parse(textBox1.Text));

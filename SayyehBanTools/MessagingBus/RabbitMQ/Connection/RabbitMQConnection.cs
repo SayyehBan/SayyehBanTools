@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
-using SayyehBanTools.Encryptor;
 using SayyehBanTools.MessagingBus.RabbitMQ.Model;
 
-namespace SayyehBanTools.MessagingBus.RabbitMQ.Connection;
 
 public class RabbitMQConnection
 {
@@ -18,6 +16,10 @@ public class RabbitMQConnection
     {
 
     }
+    /// <summary>
+    /// این متد برای اتصال به رابیت مق استفاده میشود
+    /// </summary>
+    /// <param name="rabbitMqConnectionSettings"></param>
     public RabbitMQConnection(IOptions<RabbitMqConnectionSettings> rabbitMqConnectionSettings)
     {
         _rabbitMqConnectionSettings = rabbitMqConnectionSettings.Value;
@@ -26,6 +28,9 @@ public class RabbitMQConnection
         _password = StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Password, _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase);
         _port = Convert.ToInt32(StringEncryptor.Decrypt(_rabbitMqConnectionSettings.Port.ToString(), _rabbitMqConnectionSettings.InitVector, _rabbitMqConnectionSettings.PassPhrase));
     }
+    /// <summary>
+    /// این متد برای اتصال به رابیت مق استفاده میشود
+    /// </summary>
     public void CreateRabbitMQConnection()
     {
         try

@@ -1,8 +1,14 @@
-﻿namespace SayyehBanTools.Converter;
-
+﻿/// <summary>
+/// تبدیل عدد به حروف
+/// </summary>
 public class ConvertNumToString
 {
-        public static string convert(string number)
+    /// <summary>
+    /// تبدیل عدد به حروف
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    public static string convert(string number)
         {
             int length = number.Length;
             int level = 0;
@@ -53,8 +59,15 @@ public class ConvertNumToString
             }
             return str;
         }
+    /// <summary>
+    /// تبدیل عدد به حروف
+    /// </summary>
+    /// <param name="Literal"></param>
+    /// <param name="digit_sadgan"></param>
+    /// <param name="haveup"></param>
+    /// <returns></returns>
 
-        private static string Hundreds(string Literal, int digit_sadgan, bool haveup)
+    private static string Hundreds(string Literal, int digit_sadgan, bool haveup)
         {
             if (haveup)
             {
@@ -100,8 +113,13 @@ public class ConvertNumToString
             }
             return Literal;
         }
-
-        private static string Leveler(int level, bool flag)
+    /// <summary>
+    /// تبدیل عدد به حروف
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="flag"></param>
+    /// <returns></returns>
+    private static string Leveler(int level, bool flag)
         {
             if (flag)
             {
@@ -167,8 +185,15 @@ public class ConvertNumToString
             }
             return "صفر";
         }
-
-        private static string Ones(string Literal, int digit_yekan, int digit_dahgan, bool haveup)
+    /// <summary>
+    /// تبدیل عدد به حروف
+    /// </summary>
+    /// <param name="Literal"></param>
+    /// <param name="digit_yekan"></param>
+    /// <param name="digit_dahgan"></param>
+    /// <param name="haveup"></param>
+    /// <returns></returns>
+    private static string Ones(string Literal, int digit_yekan, int digit_dahgan, bool haveup)
         {
             if (digit_dahgan != 1)
             {
@@ -222,8 +247,15 @@ public class ConvertNumToString
             }
             return Literal;
         }
-
-        private static string Tens(string Literal, int digit_yekan, int digit_dahgan, bool haveup)
+    /// <summary>
+    /// تبدیل عدد به حروف
+    /// </summary>
+    /// <param name="Literal"></param>
+    /// <param name="digit_yekan"></param>
+    /// <param name="digit_dahgan"></param>
+    /// <param name="haveup"></param>
+    /// <returns></returns>
+    private static string Tens(string Literal, int digit_yekan, int digit_dahgan, bool haveup)
         {
             if (haveup && (digit_dahgan != 0))
             {
@@ -310,8 +342,12 @@ public class ConvertNumToString
             }
             return Literal;
         }
-
-        private static string Thousand(int input)
+    /// <summary>
+    /// تبدیل عدد به حروف
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    private static string Thousand(int input)
         {
             List<int> list = new List<int>();
             while (input >= 0)

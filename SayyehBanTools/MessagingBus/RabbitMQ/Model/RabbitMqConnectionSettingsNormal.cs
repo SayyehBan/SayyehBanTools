@@ -1,11 +1,24 @@
-﻿namespace SayyehBanTools.MessagingBus.RabbitMQ.Model;
-
+﻿/// <summary>
+/// تنظمیات معمولی rabbitmq برای اتصال
+/// </summary>
 public class RabbitMqConnectionSettingsNormal
 {
-    public string Hostname { get; set; }
-    public string Port { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
+    /// <summary>
+    /// نام هاست
+    /// </summary>
+    public string? Hostname { get; set; }
+    /// <summary>
+    /// پورت
+    /// </summary>
+    public string? Port { get; set; }
+    /// <summary>
+    /// نام کاربری
+    /// </summary>
+    public string? Username { get; set; }
+    /// <summary>
+    /// رمز عبور
+    /// </summary>
+    public string? Password { get; set; }
 }
 
 /*

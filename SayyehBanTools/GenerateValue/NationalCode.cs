@@ -1,9 +1,14 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace SayyehBanTools.GenerateValue;
-
+/// <summary>
+/// کلاس تولید و بررسی کد ملی
+/// </summary>
 public class NationalCode
 {
+    /// <summary>
+    /// تولید کد ملی
+    /// </summary>
+    /// <returns></returns>
     public static string Generate()
     {
         string ss = "";

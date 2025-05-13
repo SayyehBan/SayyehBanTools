@@ -1,5 +1,6 @@
-﻿namespace SayyehBanTools.Calc;
-
+﻿/// <summary>
+/// انجام عملیات ریاضی مانند ضرب جمع و ...
+/// </summary>
 public class Calculator
 {
     /// <summary>
@@ -89,8 +90,8 @@ public class Calculator
     /// <summary>
     /// دریافت درصد تخفیف یا مالیات
     /// </summary>
-    /// <param name="amount">مبلغ تخفیف یا مالیات</param>
-    /// <param name="price">قیمت اصلی</param>
+    /// <param name="Amount">مبلغ تخفیف یا مالیات</param>
+    /// <param name="Price">قیمت اصلی</param>
     /// <returns>درصد تخفیف یا مالیات</returns>
     public static decimal GetPercent(decimal Amount, decimal Price)
     {
@@ -107,5 +108,5 @@ public class Calculator
         decimal total = Math.Round(Amount + ((Amount * percent) / 100));
         return total;
     }
-  
+
 }

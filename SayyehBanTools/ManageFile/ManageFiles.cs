@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SayyehBanTools.Converter;
-namespace SayyehBanTools.ManageFile;
 
+/// <summary>
+/// این کلاس برای مدیریت فایل ها استفاده میشود
+/// </summary>
 public class ManageFiles
 {
-    public static async Task DeleteFileServer(string baseFilePath)
+    /// <summary>
+    /// کلاس مدیریت حذف فایل
+    /// </summary>
+    /// <param name="baseFilePath"></param>
+    /// <returns></returns>
+    public static void DeleteFileServer(string baseFilePath)
     {
         // بررسی وجود فایل قبلی و حذف آن
         if (File.Exists(baseFilePath))
@@ -12,7 +18,12 @@ public class ManageFiles
             File.Delete(baseFilePath);
         }
     }
-
+    /// <summary>
+    /// کلاس مدیریت آپلود فایل به صورت async
+    /// </summary>
+    /// <param name="basePath"></param>
+    /// <param name="file"></param>
+    /// <returns></returns>
     public static async Task<string> UploadFileAsync(string basePath, IFormFile file)
     {
         // ترکیب مسیر کامل فایل

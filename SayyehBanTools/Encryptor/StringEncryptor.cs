@@ -1,109 +1,141 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
-
-namespace SayyehBanTools.Encryptor;
+using System.Threading.Tasks;
 
 public static class StringEncryptor
 {
-    private static readonly int keysize = 256;
+    private static readonly int KeySize = 256; // اندازه کلید 256 بیت
+    private static readonly int BlockSize = 128; // اندازه بلوک AES همیشه 128 بیت است
 
-    public static string Encrypt(string plainText, string initVector, string passPhrase)
+    /// <summary>
+    /// رمزگذاری رشته
+    /// </summary>
+    /// <param name="plainText">متن ورودی</param>
+    /// <param name="initVector">وکتور اولیه (باید 16 بایت باشد)</param>
+    /// <param name="passPhrase">عبارت عبور</param>
+    /// <returns>رشته رمزنگاری‌شده به‌صورت Base64</returns>
+    public static async Task<string> EncryptAsync(string plainText, string initVector, string passPhrase)
     {
-        byte[] bytes1 = Encoding.UTF8.GetBytes(initVector.Substring(0, 16));
-        byte[] bytes2 = Encoding.UTF8.GetBytes(plainText);
-        byte[] bytes3 = new PasswordDeriveBytes(passPhrase.Substring(0, 16), null).GetBytes(keysize / 8);
-        RijndaelManaged rijndaelManaged = new RijndaelManaged
+        if (string.IsNullOrEmpty(plainText))
+            throw new ArgumentNullException(nameof(plainText));
+        if (string.IsNullOrEmpty(initVector))
+            throw new ArgumentNullException(nameof(initVector));
+        if (string.IsNullOrEmpty(passPhrase))
+            throw new ArgumentNullException(nameof(passPhrase));
+
+        byte[] ivBytes = GetValidIV(initVector);
+        byte[] keyBytes = DeriveKeyFromPassPhrase(passPhrase);
+        byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+
+        using (Aes aes = Aes.Create())
         {
-            Mode = CipherMode.CBC,
-        };
-        ICryptoTransform encryptor = rijndaelManaged.CreateEncryptor(bytes3, bytes1);
-        MemoryStream memoryStream = new MemoryStream();
-        CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
-        cryptoStream.Write(bytes2, 0, bytes2.Length);
-        cryptoStream.FlushFinalBlock();
-        byte[] array = memoryStream.ToArray();
-        memoryStream.Close();
-        cryptoStream.Close();
-        return Convert.ToBase64String(array);
-    }
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7; // پدینگ استاندارد
+            aes.Key = keyBytes;
+            aes.IV = ivBytes;
 
-    //public static string Decrypt(string cipherText, string initVector, string passPhrase)
-    //{
-    //    byte[] bytes1 = Encoding.UTF8.GetBytes(initVector.Substring(0, 16));
-    //    byte[] buffer = Convert.FromBase64String(cipherText);
-    //    byte[] bytes2 = new PasswordDeriveBytes(passPhrase.Substring(0, 16), null).GetBytes(keysize / 8);
-    //    RijndaelManaged rijndaelManaged = new RijndaelManaged
-    //    {
-    //        Mode = CipherMode.CBC,
-    //    };
-    //    ICryptoTransform decryptor = rijndaelManaged.CreateDecryptor(bytes2, bytes1);
-    //    MemoryStream memoryStream = new MemoryStream(buffer);
-    //    CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-    //    byte[] numArray = new byte[buffer.Length];
-    //    int count = cryptoStream.Read(numArray, 0, numArray.Length);
-    //    memoryStream.Close();
-    //    cryptoStream.Close();
-    //    return Encoding.UTF8.GetString(numArray, 0, count);
-    //}
-    public static string Decrypt(string cipherText, string initVector, string passPhrase)
-    {
-        byte[] bytes1 = Encoding.UTF8.GetBytes(initVector);
-        byte[] buffer = Convert.FromBase64String(cipherText);
-        byte[] bytes2 = new PasswordDeriveBytes(passPhrase, null).GetBytes(keysize / 8);
-
-        RijndaelManaged rijndaelManaged = new RijndaelManaged
-        {
-            Mode = CipherMode.CBC
-        };
-
-        ICryptoTransform decryptor = rijndaelManaged.CreateDecryptor(bytes2, bytes1);
-        using (MemoryStream memoryStream = new MemoryStream(buffer))
-        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
-        {
-            int bytesRead = 0;
-            List<byte> decryptedBytes = new List<byte>();
-
-            // Read decrypted data in chunks until the end of the stream
-            do
+            using (ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
+            using (MemoryStream ms = new MemoryStream())
+            using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
             {
-                byte[] chunk = new byte[4096]; // Adjust buffer size as needed
-                bytesRead = cryptoStream.Read(chunk, 0, chunk.Length);
-                decryptedBytes.AddRange(chunk.Take(bytesRead));
-            } while (bytesRead > 0);
-
-            // Remove padding bytes (if applicable)
-            //if (rijndaelManaged.Padding == PaddingMode.PKCS7)
-            //{
-            //    int paddingSize = decryptedBytes[decryptedBytes.Count - 1];
-            //    decryptedBytes.RemoveRange(decryptedBytes.Count - paddingSize, paddingSize);
-            //}
-
-            return Encoding.UTF8.GetString(decryptedBytes.ToArray());
+                await cs.WriteAsync(plainBytes, 0, plainBytes.Length);
+                await cs.FlushFinalBlockAsync();
+                return Convert.ToBase64String(ms.ToArray());
+            }
         }
     }
 
-    public static string DecryptConnectionString(string plainText, string initVector, string passPhrase)
+    /// <summary>
+    /// رمزگشایی رشته
+    /// </summary>
+    /// <param name="cipherText">رشته رمزنگاری‌شده (Base64)</param>
+    /// <param name="initVector">وکتور اولیه</param>
+    /// <param name="passPhrase">عبارت عبور</param>
+    /// <returns>رشته رمزگشایی‌شده</returns>
+    public static async Task<string> DecryptAsync(string cipherText, string initVector, string passPhrase)
     {
-        int num1 = plainText.IndexOf("||");
-        if (num1 == -1)
+        if (string.IsNullOrEmpty(cipherText))
+            throw new ArgumentNullException(nameof(cipherText));
+        if (string.IsNullOrEmpty(initVector))
+            throw new ArgumentNullException(nameof(initVector));
+        if (string.IsNullOrEmpty(passPhrase))
+            throw new ArgumentNullException(nameof(passPhrase));
+
+        byte[] ivBytes = GetValidIV(initVector);
+        byte[] keyBytes = DeriveKeyFromPassPhrase(passPhrase);
+        byte[] cipherBytes = Convert.FromBase64String(cipherText);
+
+        using (Aes aes = Aes.Create())
         {
-            return Decrypt(plainText, initVector.Substring(0, 16), passPhrase.Substring(0, 16));
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.Key = keyBytes;
+            aes.IV = ivBytes;
+
+            using (ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
+            using (MemoryStream ms = new MemoryStream(cipherBytes))
+            using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+            using (StreamReader sr = new StreamReader(cs))
+            {
+                return await sr.ReadToEndAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// رمزگشایی رشته اتصال
+    /// </summary>
+    /// <param name="plainText">رشته ورودی</param>
+    /// <param name="initVector">وکتور اولیه</param>
+    /// <param name="passPhrase">عبارت عبور</param>
+    /// <returns>رشته رمزگشایی‌شده</returns>
+    public static async Task<string> DecryptConnectionStringAsync(string plainText, string initVector, string passPhrase)
+    {
+        int separatorIndex = plainText.IndexOf("||", StringComparison.Ordinal);
+        if (separatorIndex == -1)
+        {
+            return await DecryptAsync(plainText, initVector, passPhrase);
         }
 
-        int num2 = num1 + 1;
-        string str = plainText.Substring(0, num2 - 1);
-        string cipherText = plainText.Substring(num2 + 1, plainText.Length - (num2 + 1));
+        string prefix = plainText.Substring(0, separatorIndex);
+        string cipherText = plainText.Substring(separatorIndex + 2);
+
         try
         {
-            return str + Decrypt(cipherText, initVector.Substring(0, 16), passPhrase.Substring(0, 16));
+            string decrypted = await DecryptAsync(cipherText, initVector, passPhrase);
+            return prefix + decrypted;
         }
-        catch (Exception)
+        catch
         {
             return string.Empty;
         }
     }
-}
 
+    /// <summary>
+    /// تولید IV معتبر از رشته ورودی
+    /// </summary>
+    private static byte[] GetValidIV(string initVector)
+    {
+        byte[] ivBytes = Encoding.UTF8.GetBytes(initVector.PadRight(16, '\0').Substring(0, 16));
+        if (ivBytes.Length != BlockSize / 8)
+            throw new ArgumentException("IV must be 16 bytes for AES.", nameof(initVector));
+        return ivBytes;
+    }
+
+    /// <summary>
+    /// تولید کلید امن از عبارت عبور با PBKDF2
+    /// </summary>
+    private static byte[] DeriveKeyFromPassPhrase(string passPhrase)
+    {
+        // استفاده از PBKDF2 برای تولید کلید
+        using (var pbkdf2 = new Rfc2898DeriveBytes(passPhrase, salt: Array.Empty<byte>(), iterations: 100000, HashAlgorithmName.SHA256))
+        {
+            return pbkdf2.GetBytes(KeySize / 8); // 32 بایت برای کلید 256 بیتی
+        }
+    }
+}
 /*
  طریقه استفاده از دستور
 string encryptedText = StringEncryptor.Encrypt(plainText, initVector, passPhrase);

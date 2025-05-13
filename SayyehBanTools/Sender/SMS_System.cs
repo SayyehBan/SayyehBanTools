@@ -3,8 +3,9 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Net;
 
-namespace SayyehBanTools.Sender;
-
+/// <summary>
+/// این کلاس برای ارسال پیامک به صورت پترن استفاده میشود
+/// </summary>
 public class SMS_System
 {
     /// <summary>
@@ -17,7 +18,7 @@ public class SMS_System
     /// <param name="from"></param>
     /// <param name="to"></param>
     /// <returns></returns>
-    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendPatternAsync(string APILink, string APIKey, Dictionary<string, object> data, string patternCode, string from, string to, DateTime? DateTimeSender)
+    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendPatternAsync(string? APILink, string? APIKey, Dictionary<string, object> data, string? patternCode, string? from, string? to, DateTime? DateTimeSender)
     {
         string formattedDateTime = GetDateTimeUTCWithOffset(DateTimeSender, TimeSpan.FromSeconds(30));
         // Create JSON payload
@@ -70,7 +71,7 @@ public class SMS_System
     /// <param name="Message"></param>
     /// <param name="DateTimeSender"></param>
     /// <returns></returns>
-    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendNormalSingleAsync(string APILink, string APIKey, string from, string[] to, string Message, DateTime? DateTimeSender)
+    public static async Task<(HttpWebResponse Response, string ResponseContent)> SendNormalSingleAsync(string? APILink, string? APIKey, string? from, string[] to, string? Message, DateTime? DateTimeSender)
     {
         string formattedDateTime = GetDateTimeUTCWithOffset(DateTimeSender, TimeSpan.FromSeconds(30));
         // ایجاد JSON payload
@@ -112,7 +113,7 @@ public class SMS_System
             return (null, ex.Message); // بازگرداندن پاسخ و متن خطا
         }
     }
-    public static async Task<string> SendNormalFileAsync(string APILink, string APIKey, string FromNumber, IFormFile To,string Message)
+    public static async Task<string> SendNormalFileAsync(string? APILink, string? APIKey, string? FromNumber, IFormFile To,string? Message)
     {
         try
         {
@@ -153,7 +154,12 @@ public class SMS_System
             return (ex.Message); // Return empty content and error status code}
         }
     }
-
+    /// <summary>
+    /// ارسال به صورت معمولی
+    /// </summary>
+    /// <param name="DateTimeSender"></param>
+    /// <param name="offset"></param>
+    /// <returns></returns>
     private static string GetDateTimeUTCWithOffset(DateTime? DateTimeSender, TimeSpan offset)
     {
         DateTime dateTime = DateTimeSender ?? DateTime.UtcNow + offset;
@@ -170,7 +176,7 @@ public class SMS_System
     /// <param name="FromNumber"></param>
     /// <param name="Messages"></param>
     /// <returns></returns>
-    public static async Task<(string ResponseContent, int StatusCode)> SendPeerToPeerAsync(string APILink, string APIKey, List<List<string>> Recipients, string FromNumber, string[] Messages)
+    public static async Task<(string ResponseContent, int StatusCode)> SendPeerToPeerAsync(string? APILink, string? APIKey, List<List<string>> Recipients, string FromNumber, string[] Messages)
     {
         try
         {
@@ -234,7 +240,7 @@ public class SMS_System
     /// <param name="File"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public static async Task<string> SendPeerToPeerByFileAsync(string APILink, string APIKey, string FromNumber, IFormFile File)
+    public static async Task<string> SendPeerToPeerByFileAsync(string? APILink, string? APIKey, string FromNumber, IFormFile File)
     {
         try
         {
@@ -280,7 +286,7 @@ public class SMS_System
     /// <param name="APILink"></param>
     /// <param name="APIKey"></param>
     /// <returns></returns>
-    public static async Task<(string ResponseContent, int StatusCode)> GetCreditAsync(string APILink, string APIKey)
+    public static async Task<(string ResponseContent, int StatusCode)> GetCreditAsync(string? APILink, string? APIKey)
     {
         try
         {
@@ -325,7 +331,7 @@ public class SMS_System
     /// <param name="page"></param>
     /// <param name="per_page"></param>
     /// <returns></returns>
-    public static async Task<(string ResponseContent, int StatusCode)> GetSendListAsync(string APILink, string APIKey, int page, int per_page)
+    public static async Task<(string ResponseContent, int StatusCode)> GetSendListAsync(string? APILink, string? APIKey, int page, int per_page)
     {
         try
         {

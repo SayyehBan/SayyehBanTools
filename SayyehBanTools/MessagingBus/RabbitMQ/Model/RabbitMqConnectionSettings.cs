@@ -1,13 +1,32 @@
-﻿namespace SayyehBanTools.MessagingBus.RabbitMQ.Model;
-
+﻿/// <summary>
+/// این کلاس مدل تنظیمات اتصال به RabbitMQ
+/// </summary>
 public class RabbitMqConnectionSettings
 {
-    public string Hostname { get; set; }
-    public string Port { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public string InitVector { get; set; }
-    public string PassPhrase { get; set; }
+    /// <summary>
+    /// نام میزبان
+    /// </summary>
+    public string? Hostname { get; set; }
+    /// <summary>
+    /// پورت
+    /// </summary>
+    public string? Port { get; set; }
+    /// <summary>
+    /// نام کاربری
+    /// </summary>
+    public string? Username { get; set; }
+    /// <summary>
+    /// رمز عبور
+    /// </summary>
+    public string? Password { get; set; }
+    /// <summary>
+    /// مقدار اولیه
+    /// </summary>
+    public string? InitVector { get; set; }
+    /// <summary>
+    /// رمز عبور
+    /// </summary>
+    public string? PassPhrase { get; set; }
 }
 
 /*
