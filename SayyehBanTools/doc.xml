@@ -9,16 +9,6 @@
             دسترسی به سیستم
             </summary>
         </member>
-        <member name="M:IPAccess.IsInRange(System.String,System.String,System.String)">
-            <summary>
-            بررسی شروع و پایان 
-            IP
-            </summary>
-            <param name="ipAddress"></param>
-            <param name="rangeStart"></param>
-            <param name="rangeEnd"></param>
-            <returns></returns>
-        </member>
         <member name="T:Calculator">
             <summary>
             انجام عملیات ریاضی مانند ضرب جمع و ...
@@ -72,7 +62,7 @@
         </member>
         <member name="M:Calculator.Taxation(System.Decimal,System.Int16)">
             <summary>
-            محاسباه مبلغ درصد مالیات
+            محاسبه مبلغ درصد مالیات
             </summary>
             <param name="Amount"></param>
             <param name="percent"></param>
@@ -650,20 +640,32 @@
             کلاس تولید و بررسی کد ملی
             </summary>
         </member>
-        <member name="M:NationalCode.Generate">
+        <member name="M:NationalCode.GenerateRandom">
             <summary>
-            تولید کد ملی
+            تولید کد ملی تصادفی معتبر
             </summary>
-            <returns></returns>
+            <returns>کد ملی 10 رقمی معتبر</returns>
+        </member>
+        <member name="M:NationalCode.GenerateRound">
+            <summary>
+            تولید کد ملی رند و معتبر
+            </summary>
+            <returns>کد ملی 10 رقمی رند و معتبر</returns>
+        </member>
+        <member name="M:NationalCode.CalculateControlDigit(System.String)">
+            <summary>
+            محاسبه رقم کنترل کد ملی
+            </summary>
+            <param name="code">9 رقم اول کد ملی</param>
+            <returns>رقم کنترل (0 تا 9) یا -1 اگر نامعتبر باشد</returns>
         </member>
         <member name="M:NationalCode.IsValidNationalCode(System.String)">
-             <summary>
-             نحوه استفاده برای تولید کد
-            textBox3.Text = Generate();
-             </summary>
-             <param name="nationalCode"></param>
-             <returns></returns>
-             <exception cref="T:System.Exception"></exception>
+            <summary>
+            بررسی صحت کد ملی
+            </summary>
+            <param name="nationalCode">کد ملی</param>
+            <returns>درست یا نادرست</returns>
+            <exception cref="T:System.Exception">در صورت ورودی نامعتبر</exception>
         </member>
         <member name="T:SayyehBan">
             <summary>
@@ -1063,6 +1065,30 @@
             <param name="request"></param>
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:Pager">
+            <summary>
+            صفحه بندی
+            </summary>
+        </member>
+        <member name="M:Pager.#ctor(System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            این کلاس برای صفحه بندی استفاده میشود
+            </summary>
+            <param name="totalItems"></param>
+            <param name="currentPage"></param>
+            <param name="pageSize"></param>
+            <param name="maxPages"></param>
+        </member>
+        <member name="P:Pager.Pages">
+            <summary>
+            صفحه هات
+            </summary>
+        </member>
+        <member name="P:Pager.TotalPages">
+            <summary>
+            تعداد کل صفحه
+            </summary>
         </member>
     </members>
 </doc>
