@@ -201,8 +201,8 @@ public static class StringExtensions
         if (string.IsNullOrEmpty(str))
             return toNativeDigits ? GetDefaultDigit(languageCode) : "0";
 
-        string normalizedCode = languageCode?.ToLower() ?? "en";
-        if (!LanguageRules.TryGetValue(normalizedCode, out var rules))
+        string normalizedAdaptCode = languageCode?.ToLower() ?? "en";
+        if (!LanguageRules.TryGetValue(normalizedAdaptCode, out var rules))
         {
             Console.WriteLine($"Warning: Language code '{languageCode}' not found in LanguageRules. Using default rules.");
             rules = LanguageRules["default"];
@@ -218,6 +218,12 @@ public static class StringExtensions
         foreach (var digit in digitRules)
         {
             sb.Replace(digit.Key, digit.Value);
+        }
+
+        // اضافه کردن جایگزینی برای نقطه اعشار فارسی به انگلیسی
+        if (!toNativeDigits && normalizedAdaptCode == "fa")
+        {
+            sb.Replace("٫", "."); // تبدیل نقطه اعشار فارسی به انگلیسی
         }
 
         return sb.ToString();
@@ -253,7 +259,8 @@ public static class StringExtensions
         if (string.IsNullOrEmpty(value))
             throw new ArgumentNullException(nameof(value));
 
-        return decimal.Parse(value.NormalizeByLanguage(languageCode, false));
+        // استفاده از CultureInfo.InvariantCulture برای اطمینان از تجزیه درست نقطه اعشار انگلیسی
+        return decimal.Parse(value.NormalizeByLanguage(languageCode, false), CultureInfo.InvariantCulture);
     }
 
     /// <summary>
