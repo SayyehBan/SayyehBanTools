@@ -117,9 +117,13 @@ public static class StringEncryptor
     /// </summary>
     private static byte[] GetValidIV(string initVector)
     {
-        byte[] ivBytes = Encoding.UTF8.GetBytes(initVector.PadRight(16, '\0').Substring(0, 16));
+        if (string.IsNullOrEmpty(initVector))
+            throw new ArgumentNullException(nameof(initVector));
+
+        byte[] ivBytes = Encoding.UTF8.GetBytes(initVector);
         if (ivBytes.Length != BlockSize / 8)
-            throw new ArgumentException("IV must be 16 bytes for AES.", nameof(initVector));
+            throw new ArgumentException("IV must be exactly 16 bytes for AES.", nameof(initVector));
+
         return ivBytes;
     }
 

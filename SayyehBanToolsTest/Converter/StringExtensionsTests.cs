@@ -1,6 +1,4 @@
-﻿using System.Net.Mime;
-
-public class StringExtensionsTests
+﻿public class StringExtensionsTests
 {
     // تست نرمال‌سازی رشته به اعداد فارسی
     [Fact]
