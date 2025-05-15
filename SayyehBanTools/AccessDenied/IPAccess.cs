@@ -3,38 +3,45 @@
 /// </summary>
 public static class IPAccess
 {
-    /// <summary>
-    /// بررسی شروع و پایان 
-    /// IP
-    /// </summary>
-    /// <param name="ipAddress"></param>
-    /// <param name="rangeStart"></param>
-    /// <param name="rangeEnd"></param>
-    /// <returns></returns>
     public static bool IsInRange(string ipAddress, string rangeStart, string rangeEnd)
     {
-        // Split the IP address and range into parts.
+        // بررسی null
+        if (ipAddress == null || rangeStart == null || rangeEnd == null)
+        {
+            throw new ArgumentNullException("IP address or range cannot be null.");
+        }
+
+        // بررسی فرمت IP
         string[] ipParts = ipAddress.Split('.');
         string[] rangeStartParts = rangeStart.Split('.');
         string[] rangeEndParts = rangeEnd.Split('.');
 
-        // Check each part of the IP address.
+        if (ipParts.Length != 4 || rangeStartParts.Length != 4 || rangeEndParts.Length != 4)
+        {
+            throw new ArgumentException("Invalid IP address format. Must have exactly 4 parts.");
+        }
+
+        // بررسی عددی بودن و محدوده 0-255
         for (int i = 0; i < 4; i++)
         {
-            // If the IP part is less than the range start part, the IP is not in range.
-            if (int.Parse(ipParts[i]) < int.Parse(rangeStartParts[i]))
+            if (!int.TryParse(ipParts[i], out int ipValue) ||
+                !int.TryParse(rangeStartParts[i], out int startValue) ||
+                !int.TryParse(rangeEndParts[i], out int endValue))
             {
-                return false;
+                throw new ArgumentException("IP parts must be numeric.");
             }
 
-            // If the IP part is greater than the range end part, the IP is not in range.
-            if (int.Parse(ipParts[i]) > int.Parse(rangeEndParts[i]))
+            if (ipValue < 0 || ipValue > 255 || startValue < 0 || startValue > 255 || endValue < 0 || endValue > 255)
+            {
+                throw new ArgumentException("IP parts must be between 0 and 255.");
+            }
+
+            if (ipValue < startValue || ipValue > endValue)
             {
                 return false;
             }
         }
 
-        // The IP address is in range.
         return true;
     }
 }

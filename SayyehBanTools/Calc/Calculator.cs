@@ -10,6 +10,10 @@ public class Calculator
     /// <returns></returns>
     public static double Multiply(params double[] numbers)
     {
+        if (numbers == null)
+        {
+            throw new ArgumentNullException(nameof(numbers));
+        }
         double result = 1;
         foreach (double number in numbers)
         {
@@ -17,6 +21,7 @@ public class Calculator
         }
         return result;
     }
+
     /// <summary>
     /// انجام عملیات جمع
     /// </summary>
@@ -24,6 +29,10 @@ public class Calculator
     /// <returns></returns>
     public static double Add(params double[] numbers)
     {
+        if (numbers == null)
+        {
+            throw new ArgumentNullException(nameof(numbers));
+        }
         double result = 0;
         foreach (double number in numbers)
         {
@@ -31,6 +40,7 @@ public class Calculator
         }
         return result;
     }
+
     /// <summary>
     /// انجام عملیات منفی
     /// </summary>
@@ -38,7 +48,11 @@ public class Calculator
     /// <returns></returns>
     public static double Subtract(params double[] numbers)
     {
-        if (numbers.Length == 0)
+        if (numbers == null)
+        {
+            throw new ArgumentNullException(nameof(numbers));
+        }
+        if (numbers.Length < 2)
         {
             throw new ArgumentException("Subtract requires at least two numbers.");
         }
@@ -60,6 +74,10 @@ public class Calculator
     /// <exception cref="DivideByZeroException"></exception>
     public static double Divide(params double[] numbers)
     {
+        if (numbers == null)
+        {
+            throw new ArgumentNullException(nameof(numbers));
+        }
         if (numbers.Length < 2)
         {
             throw new ArgumentException("At least two numbers are required for division.");
@@ -76,6 +94,7 @@ public class Calculator
         }
         return result;
     }
+
     /// <summary>
     /// محاسبه مبلغ درصد تخفیف
     /// </summary>
@@ -84,9 +103,18 @@ public class Calculator
     /// <returns></returns>
     public static decimal Discount(decimal Amount, short percent)
     {
-        decimal total = Math.Round(Amount - ((Amount * percent) / 100));
+        if (Amount < 0)
+        {
+            throw new ArgumentException("Amount cannot be negative.", nameof(Amount));
+        }
+        if (percent < 0)
+        {
+            throw new ArgumentException("Percent cannot be negative.", nameof(percent));
+        }
+        decimal total = Math.Round(Amount - ((Amount * percent) / 100), 2);
         return total;
     }
+
     /// <summary>
     /// دریافت درصد تخفیف یا مالیات
     /// </summary>
@@ -95,18 +123,30 @@ public class Calculator
     /// <returns>درصد تخفیف یا مالیات</returns>
     public static decimal GetPercent(decimal Amount, decimal Price)
     {
+        if (Price <= 0)
+        {
+            throw new ArgumentException("Price must be positive.", nameof(Price));
+        }
         return (Amount / Price) * 100;
     }
+
     /// <summary>
-    /// محاسباه مبلغ درصد مالیات
+    /// محاسبه مبلغ درصد مالیات
     /// </summary>
     /// <param name="Amount"></param>
     /// <param name="percent"></param>
     /// <returns></returns>
     public static decimal Taxation(decimal Amount, short percent)
     {
-        decimal total = Math.Round(Amount + ((Amount * percent) / 100));
+        if (Amount < 0)
+        {
+            throw new ArgumentException("Amount cannot be negative.", nameof(Amount));
+        }
+        if (percent < 0)
+        {
+            throw new ArgumentException("Percent cannot be negative.", nameof(percent));
+        }
+        decimal total = Math.Round(Amount + ((Amount * percent) / 100), 2);
         return total;
     }
-
 }
