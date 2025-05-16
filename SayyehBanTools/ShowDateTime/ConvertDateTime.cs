@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Text;
-namespace SayyehBanTools.ShowDateTime;
 /// <summary>
 /// این کلاس برای تبدیل تاریخ به فارسی استفاده میشود
 /// </summary>
