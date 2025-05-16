@@ -867,39 +867,6 @@
             <param name="queueName">نام صف</param>
             <returns>Task</returns>
         </member>
-        <member name="T:SayyehBanTools.ShowDateTime.ConvertDateTime">
-            <summary>
-            این کلاس برای تبدیل تاریخ به فارسی استفاده میشود
-            </summary>
-        </member>
-        <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.miladi2shamsi(System.DateTime)">
-            <summary>
-            کد مربوط به تاریخ به صورت ماه و روز
-            </summary>
-            <param name="_date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.ConvertToLocalDateTime(System.DateTime)">
-            <summary>
-            تبدیل تاریخ و زمان UTC به تاریخ و زمان کشور مورد نظر
-            </summary>
-            <param name="utcDateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.MiladiToShamsi(System.DateTime)">
-            <summary>
-            تبدیل تاریخ میلادی به شمسی
-            </summary>
-            <param name="MiladiDate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayyehBanTools.ShowDateTime.ConvertDateTime.ShamsiToMiladi(System.String)">
-            <summary>
-            تبدیل تاریخ شمسی به میلادی
-            </summary>
-            <param name="ShDate"></param>
-            <returns></returns>
-        </member>
         <member name="T:RabbitMQMessageBus">
             <summary>
             کلاس ارسال پیام به RabbitMQ با تنظیمات رمزنگاری‌شده
@@ -1047,6 +1014,39 @@
             <param name="APIKey"></param>
             <param name="page"></param>
             <param name="per_page"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ConvertDateTime">
+            <summary>
+            این کلاس برای تبدیل تاریخ به فارسی استفاده میشود
+            </summary>
+        </member>
+        <member name="M:ConvertDateTime.miladi2shamsi(System.DateTime)">
+            <summary>
+            کد مربوط به تاریخ به صورت ماه و روز
+            </summary>
+            <param name="_date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ConvertDateTime.ConvertToLocalDateTime(System.DateTime)">
+            <summary>
+            تبدیل تاریخ و زمان UTC به تاریخ و زمان کشور مورد نظر
+            </summary>
+            <param name="utcDateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ConvertDateTime.MiladiToShamsi(System.DateTime)">
+            <summary>
+            تبدیل تاریخ میلادی به شمسی
+            </summary>
+            <param name="MiladiDate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ConvertDateTime.ShamsiToMiladi(System.String)">
+            <summary>
+            تبدیل تاریخ شمسی به میلادی
+            </summary>
+            <param name="ShDate"></param>
             <returns></returns>
         </member>
         <member name="T:TranslationRequest">
