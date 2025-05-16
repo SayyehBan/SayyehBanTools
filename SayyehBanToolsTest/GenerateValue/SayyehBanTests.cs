@@ -1,7 +1,6 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Xunit;
-
+﻿/// <summary>
+/// این کلاس برای تست کدهای سایهبن استفاده میشود
+/// </summary>
 public class SayyehBanTests
 {
     [Fact]

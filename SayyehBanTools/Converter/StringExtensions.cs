@@ -370,9 +370,9 @@ public static class StringExtensions
     /// <summary>
     /// حذف پیشوند wwwroot/
     /// </summary>
-    public static string RemoveDirectWWWROOT(this string str)
+    public static string? RemoveDirectWWWROOT(this string str)
     {
-        return str?.Replace("wwwroot/", "") ?? "";
+        return str?.Replace("wwwroot/", "", StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>

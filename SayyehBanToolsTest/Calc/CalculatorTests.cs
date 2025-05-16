@@ -43,7 +43,7 @@ public class CalculatorTests
     [Fact]
     public void Multiply_NullNumbers_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => Calculator.Multiply(null));
+        Assert.Throws<ArgumentNullException>(() => Calculator.Multiply(null!));
     }
 
     // Tests for Add
@@ -86,7 +86,7 @@ public class CalculatorTests
     [Fact]
     public void Add_NullNumbers_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => Calculator.Add(null));
+        Assert.Throws<ArgumentNullException>(() => Calculator.Add(null!));
     }
 
     // Tests for Subtract
@@ -127,7 +127,7 @@ public class CalculatorTests
     [Fact]
     public void Subtract_NullNumbers_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => Calculator.Subtract(null));
+        Assert.Throws<ArgumentNullException>(() => Calculator.Subtract(null!));
     }
 
     // Tests for Divide
@@ -168,7 +168,7 @@ public class CalculatorTests
     [Fact]
     public void Divide_NullNumbers_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => Calculator.Divide(null));
+        Assert.Throws<ArgumentNullException>(() => Calculator.Divide(null!));
     }
 
     // Tests for Discount

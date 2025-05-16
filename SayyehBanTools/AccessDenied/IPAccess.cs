@@ -3,6 +3,15 @@
 /// </summary>
 public static class IPAccess
 {
+    /// <summary>
+    /// بررسی معتبر بودن Range IP
+    /// </summary>
+    /// <param name="ipAddress"></param>
+    /// <param name="rangeStart"></param>
+    /// <param name="rangeEnd"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public static bool IsInRange(string ipAddress, string rangeStart, string rangeEnd)
     {
         // بررسی null

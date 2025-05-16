@@ -200,8 +200,8 @@
         // توضیح: بررسی می‌کند که آیا متد RemoveDirectWWWROOT پیشوند wwwroot/ را حذف می‌کند
         string input = "wwwroot/images/test.jpg";
         string expected = "images/test.jpg";
-        string result = input.RemoveDirectWWWROOT();
-        Assert.Equal(expected, result);
+        string? result = input.RemoveDirectWWWROOT(); // Allow result to be nullable
+        Assert.Equal(expected, result ?? string.Empty); // Handle null case with a fallback
     }
 
     // تست جایگزینی ::1 با 127.0.0.1

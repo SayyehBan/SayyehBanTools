@@ -9,6 +9,17 @@
             دسترسی به سیستم
             </summary>
         </member>
+        <member name="M:IPAccess.IsInRange(System.String,System.String,System.String)">
+            <summary>
+            بررسی معتبر بودن Range IP
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="rangeStart"></param>
+            <param name="rangeEnd"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Calculator">
             <summary>
             انجام عملیات ریاضی مانند ضرب جمع و ...
@@ -694,23 +705,36 @@
         </member>
         <member name="T:ManageFiles">
             <summary>
-            این کلاس برای مدیریت فایل ها استفاده میشود
+            این کلاس برای مدیریت فایل‌ها استفاده می‌شود
+            </summary>
+        </member>
+        <member name="M:ManageFiles.#ctor(System.IO.Abstractions.IFileSystem)">
+            <summary>
+            این کلاس برای مدیریت فایل‌ها استفاده می‌شود
             </summary>
         </member>
         <member name="M:ManageFiles.DeleteFileServer(System.String)">
             <summary>
-            کلاس مدیریت حذف فایل
+            حذف فایل از سرور
             </summary>
-            <param name="baseFilePath"></param>
-            <returns></returns>
+            <param name="baseFilePath">مسیر فایل</param>
         </member>
         <member name="M:ManageFiles.UploadFileAsync(System.String,Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
-            کلاس مدیریت آپلود فایل به صورت async
+            آپلود فایل به‌صورت کامل و async
             </summary>
-            <param name="basePath"></param>
-            <param name="file"></param>
-            <returns></returns>
+            <param name="basePath">مسیر پایه</param>
+            <param name="file">فایل ورودی</param>
+            <returns>مسیر فایل آپلودشده</returns>
+        </member>
+        <member name="M:ManageFiles.UploadFileChunkedAsync(System.String,Microsoft.AspNetCore.Http.IFormFile,System.Int32)">
+            <summary>
+            آپلود فایل به‌صورت تکه‌ای (Chunked) و async
+            </summary>
+            <param name="basePath">مسیر پایه</param>
+            <param name="file">فایل ورودی</param>
+            <param name="chunkSize">اندازه هر تکه (بایت)</param>
+            <returns>مسیر فایل آپلودشده</returns>
         </member>
         <member name="T:RabbitMQConnectionNormal">
             <summary>

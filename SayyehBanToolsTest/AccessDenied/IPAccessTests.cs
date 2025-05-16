@@ -123,12 +123,12 @@ public class IPAccessTests
     public void IsInRange_NullIPAddress_ThrowsArgumentNullException()
     {
         // Arrange
-        string ipAddress = null;
+        string? ipAddress = null;
         string rangeStart = "192.168.1.1";
         string rangeEnd = "192.168.1.200";
 
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => IPAccess.IsInRange(ipAddress, rangeStart, rangeEnd));
+        Assert.Throws<ArgumentNullException>(() => IPAccess.IsInRange(ipAddress!, rangeStart, rangeEnd));
     }
     /// <summary>
     /// تست IsInRange برای بررسی اینکه آیا یک IP در محدوده مشخص شده قرار دارد یا خیر
