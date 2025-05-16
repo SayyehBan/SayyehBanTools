@@ -669,20 +669,28 @@
         </member>
         <member name="T:SayyehBan">
             <summary>
-            کلاس بررسی و تولید کد سایه بان
+            کلاس بررسی و تولید کد سایه‌بان
             </summary>
         </member>
         <member name="M:SayyehBan.IsValidCode(System.String)">
             <summary>
-            بررسی کد سایه بان
+            بررسی صحت کد سایه‌بان
             </summary>
-            <param name="nationalCode"></param>
-            <returns></returns>
-            <exception cref="T:System.Exception"></exception>
+            <param name="nationalCode">کد سایه‌بان 13 رقمی</param>
+            <returns>درستی یا نادرستی کد</returns>
+            <exception cref="T:System.Exception">در صورت نادرست بودن فرمت کد</exception>
         </member>
-        <member name="M:SayyehBan.GenerateCode">
-            نحوه بررسی کد سایه بان
-               if (!IsValidCode(textBox2.Text))
+        <member name="M:SayyehBan.GenerateRandom">
+            <summary>
+            تولید کد سایه‌بان تصادفی و معتبر
+            </summary>
+            <returns>یک کد سایه‌بان 13 رقمی معتبر</returns>
+        </member>
+        <member name="M:SayyehBan.GenerateRound">
+            <summary>
+            تولید کد سایه‌بان رند و معتبر
+            </summary>
+            <returns>یک کد سایه‌بان 13 رقمی معتبر با الگوی رند</returns>
         </member>
         <member name="T:ManageFiles">
             <summary>
