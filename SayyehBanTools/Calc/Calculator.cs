@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿namespace SayyehBanTools.Calc;
+/// <summary>
 /// انجام عملیات ریاضی مانند ضرب جمع و ...
 /// </summary>
 public class Calculator

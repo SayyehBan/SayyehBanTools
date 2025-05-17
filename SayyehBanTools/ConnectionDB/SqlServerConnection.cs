@@ -1,6 +1,6 @@
-﻿using System.Security.Cryptography;
-using System.Threading.Tasks;
-
+﻿using SayyehBanTools.Encryptor;
+using System.Security.Cryptography;
+namespace SayyehBanTools.ConnectionDB;
 /// <summary>
 /// این کلاس برای اتصال به دیتابیس اسکیوال سرور استفاده میشود
 /// </summary>

@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+namespace SayyehBanTools.Encryptor;
 /// <summary>
 /// کلاس مدیریت رمزگذاری
 /// </summary>

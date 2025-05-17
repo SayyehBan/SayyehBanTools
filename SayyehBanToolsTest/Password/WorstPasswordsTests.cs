@@ -1,6 +1,7 @@
-﻿using System.Security.Cryptography;
+﻿using SayyehBanTools.Password;
+using System.Security.Cryptography;
 using System.Text;
-
+namespace SayyehBanToolsTest.Password;
 public class WorstPasswordsTests
 {
     private readonly WorstPasswords _worstPasswords;

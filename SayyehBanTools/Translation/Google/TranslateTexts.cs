@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using SayyehBanTools.Translation.Google.Model;
+namespace SayyehBanTools.Translation.Google;
 /// <summary>
 /// این کلاس برای ترجمه متن به زبان های مختلف استفاده میشود.
 /// </summary>

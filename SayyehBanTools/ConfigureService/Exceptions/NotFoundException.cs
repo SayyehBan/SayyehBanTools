@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿namespace SayyehBanTools.ConfigureService.Exceptions;
+/// <summary>
 /// استثنای سفارشی برای زمانی که اطلاعات یافت نشود
 /// </summary>
 public class NotFoundException : Exception

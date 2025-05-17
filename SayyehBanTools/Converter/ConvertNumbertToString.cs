@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿namespace SayyehBanTools.Converter;
+/// <summary>
 /// تبدیل عدد به رشته
 /// </summary>
 public class ConvertNumbertToString

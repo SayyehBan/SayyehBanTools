@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿namespace SayyehBanTools.Utilities;
+/// <summary>
 /// صفحه بندی
 /// </summary>
 public class Pager

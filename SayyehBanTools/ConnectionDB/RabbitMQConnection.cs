@@ -1,6 +1,6 @@
-﻿
+﻿using SayyehBanTools.Encryptor;
 using System.Security.Cryptography;
-
+namespace SayyehBanTools.ConnectionDB;
 /// <summary>
 /// این کلاس برای سرویس های رابیت مق استفاده میشود
 /// </summary>

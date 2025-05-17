@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SayyehBanTools.ConnectionDB;
 using SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
-
+namespace SayyehBanTools.ConfigureService.Configure;
 /// <summary>
 /// این کلاس برای سرویس های رابیت مق استفاده میشود
 /// </summary>

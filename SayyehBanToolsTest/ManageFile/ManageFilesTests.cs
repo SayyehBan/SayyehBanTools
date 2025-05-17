@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Moq;
+using SayyehBanTools.ManageFile;
 using System.IO.Abstractions.TestingHelpers;
 using System.Text;
-
+namespace SayyehBanToolsTest.ManageFile;
 public class ManageFilesTests
 {
     private readonly MockFileSystem _fileSystem;

@@ -1,4 +1,7 @@
-﻿public class ConvertDateTimeTests
+﻿using SayyehBanTools.ShowDateTime;
+
+namespace SayyehBanToolsTest.ShowDateTime;
+public class ConvertDateTimeTests
 {
     /// <summary>
     /// تست تبدیل تاریخ میلادی به شمسی با فرمت صحیح

@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿using SayyehBanTools.AccessDenied;
+
+namespace SayyehBanToolsTest.AccessDenied;
+/// <summary>
 /// تست IPAccess
 /// </summary>
 public class IPAccessTests

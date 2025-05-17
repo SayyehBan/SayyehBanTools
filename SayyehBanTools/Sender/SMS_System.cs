@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Net;
-
+namespace SayyehBanTools.Sender;
 /// <summary>
 /// این کلاس برای ارسال پیامک به صورت پترن استفاده میشود
 /// </summary>

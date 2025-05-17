@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿namespace SayyehBanTools.MessagingBus.RabbitMQ.Model;
+/// <summary>
 /// این کلاس مدل تنظیمات اتصال به RabbitMQ
 /// </summary>
 public class RabbitMqConnectionSettings

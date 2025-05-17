@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-
+namespace SayyehBanTools.Extensions;
 /// <summary>
 /// کلاس مدیریت صفحه بندی
 /// </summary>

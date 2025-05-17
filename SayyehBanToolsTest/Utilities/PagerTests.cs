@@ -1,4 +1,7 @@
-﻿public class PagerTests
+﻿using SayyehBanTools.Utilities;
+
+namespace SayyehBanToolsTest.Utilities;
+public class PagerTests
 {
     /// <summary>
     /// تست مقداردهی اولیه با مقادیر پیش‌فرض

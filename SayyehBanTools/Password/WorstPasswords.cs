@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-
+namespace SayyehBanTools.Password;
 /// <summary>  
 /// این کلاس برای مدیریت کلمات پسورد های ضعیف استفاده میشود  
 /// </summary>  

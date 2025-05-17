@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿using SayyehBanTools.Calc;
+
+namespace SayyehBanToolsTest.Calc;
+/// <summary>
 /// تست محاسبات ریاضی
 /// </summary>
 public class CalculatorTests

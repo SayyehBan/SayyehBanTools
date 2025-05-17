@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿using SayyehBanTools.Encryptor;
+
+namespace SayyehBanToolsTest.Encryptor;
+/// <summary>
 /// تست رمزنگاری و رمزگشایی
 /// </summary>
 public class StringEncryptorTests

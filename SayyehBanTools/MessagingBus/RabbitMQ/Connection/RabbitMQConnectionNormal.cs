@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
-
+using SayyehBanTools.MessagingBus.RabbitMQ.Model;
+namespace SayyehBanTools.MessagingBus.RabbitMQ.Connection;
 /// <summary>
 /// کلاس مدیریت اتصال به RabbitMQ بدون رمزنگاری
 /// </summary>

@@ -1,4 +1,6 @@
-﻿
+﻿using SayyehBanTools.ConfigureService.Exceptions;
+
+namespace SayyehBanToolsTest.ConfigureService.Exceptions;
 /// <summary>
 /// تست‌های واحد برای کلاس NotFoundException
 /// </summary>

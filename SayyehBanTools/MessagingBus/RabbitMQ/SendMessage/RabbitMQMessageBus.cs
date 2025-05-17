@@ -1,9 +1,12 @@
-﻿using System.Text;
+﻿
+
 using Newtonsoft.Json;
 using RabbitMQ.Client;
-using SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
+using SayyehBanTools.MessagingBus.RabbitMQ.Connection;
+using SayyehBanTools.MessagingBus.RabbitMQ.Model;
+using System.Text;
 
-
+namespace SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
 /// <summary>
 /// کلاس ارسال پیام به RabbitMQ با تنظیمات رمزنگاری‌شده
 /// </summary>

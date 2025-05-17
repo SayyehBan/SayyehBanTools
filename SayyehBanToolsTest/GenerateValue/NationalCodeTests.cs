@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿using SayyehBanTools.GenerateValue;
+
+namespace SayyehBanToolsTest.GenerateValue;
+/// <summary>
 /// تست تولید کد ملی
 /// </summary>
 public class NationalCodeTests

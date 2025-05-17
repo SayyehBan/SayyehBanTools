@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+namespace SayyehBanTools.Converter;
 /// <summary>
 /// افزونه مدیریت رشته ها
 /// </summary>

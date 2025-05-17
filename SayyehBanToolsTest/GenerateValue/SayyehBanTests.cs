@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿using SayyehBanTools.GenerateValue;
+
+namespace SayyehBanToolsTest.GenerateValue;
+/// <summary>
 /// این کلاس برای تست کدهای سایهبن استفاده میشود
 /// </summary>
 public class SayyehBanTests

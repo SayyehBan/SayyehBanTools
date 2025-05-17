@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿namespace SayyehBanTools.AccessDenied;
+/// <summary>
 /// دسترسی به سیستم
 /// </summary>
 public static class IPAccess

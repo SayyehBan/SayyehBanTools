@@ -1,4 +1,4 @@
-﻿
+﻿namespace SayyehBanTools.Translation.Google.Model;
 /// <summary>
 /// مدل برای درخواست ترجمه
 /// </summary>

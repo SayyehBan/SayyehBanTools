@@ -1,4 +1,7 @@
-﻿public class StringExtensionsTests
+﻿using SayyehBanTools.Converter;
+
+namespace SayyehBanToolsTest.Converter;
+public class StringExtensionsTests
 {
     // تست نرمال‌سازی رشته به اعداد فارسی
     [Fact]
